@@ -109,8 +109,8 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-4 w-4 text-gray-400 mt-1" />
                 <div className="text-gray-300">
-                  <div>3160 US-21</div>
-                  <div>Fort Mill, SC 29715</div>
+                  <div>30 N Gould St Ste N</div>
+                  <div>Sheridan, WY 82801</div>
                   <div>United States</div>
                 </div>
               </div>
