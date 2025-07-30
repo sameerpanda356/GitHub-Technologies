@@ -27,32 +27,28 @@ const WhoWeAre: React.FC = () => {
 
   const leadership = [
     {
-      name: 'Sarah Chen',
+      name: 'Ritu Kaushik',
       title: 'CEO & Founder',
       bio: '15+ years in agile transformation, former VP at Fortune 500 tech company. Certified SAFe Program Consultant and Scrum Trainer.',
-      image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg',
-      linkedin: '#'
+      image: '/Rk.png'
     },
     {
       name: 'Michael Rodriguez',
       title: 'CTO & Co-Founder',
       bio: 'DevOps pioneer with 20+ years experience. Former Principal Architect at leading cloud provider. Expert in AI/ML infrastructure.',
-      image: 'https://images.pexels.com/photos/3184611/pexels-photo-3184611.jpeg',
-      linkedin: '#'
+      image: 'https://images.pexels.com/photos/3184611/pexels-photo-3184611.jpeg'
     },
     {
-      name: 'Dr. Emily Watson',
+      name: 'Divyanshu Garg',
       title: 'Head of AI Innovation',
       bio: 'PhD in Machine Learning, former research scientist at Google AI. Specializes in enterprise AI solutions and ethical AI practices.',
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg',
-      linkedin: '#'
+      image: '/Dg.png'
     },
     {
-      name: 'David Kim',
+      name: 'Shalini Kaushik',
       title: 'VP of Delivery',
       bio: 'Agile coach and transformation expert. Led 50+ successful enterprise transformations. Certified in all major agile frameworks.',
-      image: 'https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg',
-      linkedin: '#'
+      image: '/Sk.png'
     }
   ];
 
