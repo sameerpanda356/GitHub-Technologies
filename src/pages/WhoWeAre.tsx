@@ -181,20 +181,6 @@ const WhoWeAre: React.FC = () => {
                   <h3 className="text-xl font-bold text-gray-900 mb-1">{leader.name}</h3>
                   <p className="text-blue-600 font-semibold mb-3">{leader.title}</p>
                   <p className="text-gray-600 text-sm mb-4">{leader.bio}</p>
-                  <div className="flex space-x-3">
-                    <a
-                      href={leader.linkedin}
-                      className="text-blue-600 hover:text-blue-800 transition-colors"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </a>
-                    <a
-                      href={`mailto:${leader.name.toLowerCase().replace(' ', '.')}@aegisagile.com`}
-                      className="text-gray-600 hover:text-gray-800 transition-colors"
-                    >
-                      <Mail className="h-5 w-5" />
-                    </a>
-                  </div>
                 </div>
               </div>
             ))}
