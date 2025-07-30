@@ -9,6 +9,8 @@ const GetInTouch: React.FC = () => {
     subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -18,8 +20,32 @@ const GetInTouch: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus({ success: true, message: 'Message sent successfully!' });
+        // Reset form
+        setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+      } else {
+        const errorData = await response.json();
+        setSubmitStatus({ success: false, message: errorData.error || 'Failed to send message' });
+      }
+    } catch (error) {
+      setSubmitStatus({ success: false, message: 'Network error. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
     // Handle form submission here
     console.log('Form submitted:', formData);
   };
@@ -230,11 +256,22 @@ const GetInTouch: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2"
+                disabled={isSubmitting}
+                className={ 'w-full $ { isSubmitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
+                } text-white py-3 px-6 rounded-lg font-semibold focus:ring-2 focus:ring-blue-500 
+                  focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2' }
               >
+              
                 <Send className="w-5 h-5" />
-                <span>Send Message</span>
+                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
               </button>
+              {submitStatus && (
+                <div className={`mt-4 p-3 rounded-lg text-center ${
+                  submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                }`}>
+                  {submitStatus.message}
+                </div>
+              )}
             </form>
           </div>
         </div>
