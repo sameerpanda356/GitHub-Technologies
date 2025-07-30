@@ -10,6 +10,12 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    if (data.honeypot) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ message: "Email sent successfully" })
+      };
+    }
     const data = JSON.parse(event.body);
     
     // Validate required fields
