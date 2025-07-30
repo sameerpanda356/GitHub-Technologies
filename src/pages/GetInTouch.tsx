@@ -72,8 +72,8 @@ const GetInTouch: React.FC = () => {
                   <h3 className="text-lg font-semibold text-gray-900">Address</h3>
                   <p className="text-gray-600">
                   <h2 className="text-lg font-semibold text-gray-900">USA</h2>
-                    3160 US-21, <br />
-                    Fort Mill, SC 29715<br />
+                    30 N Gould St Ste N, <br />
+                    Sheridan, WY 82801<br />
                     United States
                   </p>
                 </div>
