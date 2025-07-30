@@ -29,7 +29,7 @@ const WhoWeAre: React.FC = () => {
     {
       name: 'Ritu Kaushik',
       title: 'CEO & Founder',
-      bio: '15+ years in agile transformation, former VP at Fortune 500 tech company. Certified SAFe Program Consultant and Scrum Trainer.',
+      bio: 'Visionary CEO & Founder focused on shaping the future through innovation and purpose-driven leadership. Believes in empowering people, building exceptional teams, and delivering meaningful impact.',
       image: '/Rk.png'
     },
     {
@@ -41,13 +41,13 @@ const WhoWeAre: React.FC = () => {
     {
       name: 'Divyanshu Garg',
       title: 'Head of AI Innovation',
-      bio: 'PhD in Machine Learning, former research scientist at Google AI. Specializes in enterprise AI solutions and ethical AI practices.',
+      bio: 'As Head of AI Innovation, Divyanshu leads transformative AI strategies that drive business growth and shape the future of intelligent technology. With deep expertise in machine learning, automation, and emerging technologies, Divyanshu pioneers cutting-edge solutions that redefine industry standards and deliver measurable impact.',
       image: '/Dg.png'
     },
     {
       name: 'Shalini Kaushik',
-      title: 'VP of Delivery',
-      bio: 'Agile coach and transformation expert. Led 50+ successful enterprise transformations. Certified in all major agile frameworks.',
+      title: 'HR Manager',
+      bio: 'With 8+ years of experience in driving talent acquisition, employee engagement, and culture transformation. Shalini is passionate about empowering people and building high-performing, inclusive workplaces that fuel organizational growth.',
       image: '/Sk.png'
     }
   ];
@@ -64,12 +64,12 @@ const WhoWeAre: React.FC = () => {
   ];
 
   const achievements = [
-    { number: '500+', label: 'Projects Delivered' },
+    { number: '10+', label: 'Projects Delivered' },
     { number: '98%', label: 'Client Satisfaction' },
-    { number: '50+', label: 'Expert Consultants' },
-    { number: '15+', label: 'Years Experience' },
-    { number: '25+', label: 'Countries Served' },
-    { number: '$100M+', label: 'Client Value Created' }
+    { number: '15+', label: 'Expert Consultants' },
+    { number: '5+', label: 'Years Experience' },
+    { number: '10+', label: 'Countries Served' },
+    { number: '$10M+', label: 'Client Value Created' }
   ];
 
   return (
