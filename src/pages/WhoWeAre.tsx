@@ -175,7 +175,7 @@ const WhoWeAre: React.FC = () => {
                 <img
                   src={leader.image}
                   alt={leader.name}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-62 object-cover"
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-1">{leader.name}</h3>
