@@ -37,6 +37,15 @@ const GetInTouch: React.FC = () => {
             We'd love to hear from you. Let's start a conversation about your goals.
           </p>
         </div>
+        <div style={{ display: 'none' }}>
+          <label htmlFor="honeypot">Don't fill this out</label>
+          <input 
+            type="text" 
+            id="honeypot" 
+            name="honeypot" 
+            onChange={handleInputChange} 
+          />
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
