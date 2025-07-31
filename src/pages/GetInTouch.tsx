@@ -25,7 +25,10 @@ const GetInTouch: React.FC = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     try {
-      const response = await fetch('/.netlify/functions/send-email', {
+      const response = await fetch(process.env.NODE_ENV === 'development' 
+      ? '/.netlify/functions/send-email' 
+      : `${window.location.origin}/.netlify/functions/send-email`, 
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

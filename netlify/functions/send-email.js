@@ -1,6 +1,11 @@
 const mailgun = require("mailgun-js");
 
 exports.handler = async (event, context) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST'
+  };
   // Only allow POST requests
   if (event.httpMethod !== "POST") {
     return {
@@ -13,6 +18,7 @@ exports.handler = async (event, context) => {
     if (data.honeypot) {
       return {
         statusCode: 200,
+        header,
         body: JSON.stringify({ message: "Email sent successfully" })
       };
     }
@@ -56,6 +62,7 @@ exports.handler = async (event, context) => {
   } catch (error) {
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error: error.message })
     };
   }
