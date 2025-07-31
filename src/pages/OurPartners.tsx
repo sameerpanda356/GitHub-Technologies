@@ -161,7 +161,7 @@ const OurPartners: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -193,7 +193,7 @@ const OurPartners: React.FC = () => {
       </section>
 
       {/* Partnership Benefits */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Partnership Benefits</h2>
@@ -218,7 +218,7 @@ const OurPartners: React.FC = () => {
       </section>
 
       {/* Strategic Partners */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Strategic Partners</h2>
@@ -266,7 +266,7 @@ const OurPartners: React.FC = () => {
       </section>
 
       {/* Technology Partners */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Technology Partners</h2>
@@ -296,7 +296,7 @@ const OurPartners: React.FC = () => {
       </section>
 
       {/* Industry Partners */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Industry Partners</h2>
@@ -335,7 +335,7 @@ const OurPartners: React.FC = () => {
       </section>
 
       {/* Client Testimonials */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
@@ -368,7 +368,7 @@ const OurPartners: React.FC = () => {
       </section>
 
       {/* Partnership CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+      <section className="py-12 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Become Our Partner</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">

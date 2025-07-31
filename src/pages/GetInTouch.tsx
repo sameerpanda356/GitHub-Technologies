@@ -76,17 +76,18 @@ const GetInTouch: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to transform your business with cutting-edge technology solutions? 
-            We'd love to hear from you. Let's start a conversation about your goals.
-          </p>
+      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold mb-6">Get in Touch</h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Ready to transform your business with cutting-edge technology solutions? 
+              We'd love to hear from you. Let's start a conversation about your goals.
+            </p>
+          </div>
         </div>
+      </section>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div style={{ display: 'none' }}>
           <label htmlFor="honeypot">Don't fill this out</label>
           <input 
@@ -96,7 +97,7 @@ const GetInTouch: React.FC = () => {
             onChange={handleInputChange} 
           />
         </div>
-
+        {/* Header Section */}
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="bg-white rounded-2xl shadow-xl p-8">

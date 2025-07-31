@@ -92,7 +92,7 @@ const WhoWeServe: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl font-bold mb-6">Who We Serve</h1>
@@ -105,7 +105,7 @@ const WhoWeServe: React.FC = () => {
       </section>
 
       {/* Industries Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Industries We Transform</h2>
@@ -154,7 +154,7 @@ const WhoWeServe: React.FC = () => {
       </section>
 
       {/* Company Types Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Company Sizes We Support</h2>
@@ -186,7 +186,7 @@ const WhoWeServe: React.FC = () => {
       </section>
 
       {/* Case Studies Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Success Stories</h2>
@@ -227,7 +227,7 @@ const WhoWeServe: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+      <section className="py-12 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Is Your Industry Listed?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">

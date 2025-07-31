@@ -75,7 +75,7 @@ const WhoWeAre: React.FC = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-20">
+      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -106,7 +106,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8">
@@ -132,7 +132,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Core Values</h2>
@@ -157,7 +157,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* Leadership Team */}
-      <section className="py-20 bg-white">
+      <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
@@ -189,7 +189,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-20 bg-blue-900 text-white">
+      <section className="py-12 bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">Our Achievements</h2>
@@ -212,7 +212,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* Certifications Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Certifications</h2>
@@ -236,7 +236,7 @@ const WhoWeAre: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
+      <section className="py-12 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Work Together?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">

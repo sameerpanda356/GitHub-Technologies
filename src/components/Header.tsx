@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, WrapText, X } from 'lucide-react';
 
 interface HeaderProps {
   currentPage: string;
@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50 border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div 
@@ -40,7 +40,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
               alt="GitHub Technologies Logo" 
               className="h-10 w-auto"
             />
-            <span className="text-2xl font-bold text-blue-900">GitHub Technologies</span>
+            <span className="text-2xl font-bold text-orange-900">GitHub</span> 
+            <span className="text-2xl font-bold text-orange-900">Technologies</span> 
           </div>
 
           {/* Desktop Navigation */}
