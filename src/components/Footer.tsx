@@ -45,16 +45,36 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             <p className="italic">The market doesn’t reward ‘Agile.’ It rewards ships-that-win. We build warships.</p>
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://www.linkedin.com/company/github-technologies" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://twitter.com/githubtech" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://www.facebook.com/githubtechnologies" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a 
+                href="https://www.instagram.com/githubtechnologies" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -121,7 +141,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © 2025 GitHub Technologies. All rights reserved.
+            © 2020 GitHub Technologies. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
