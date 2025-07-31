@@ -1,12 +1,17 @@
 import React from 'react';
 import { ArrowRight, CheckCircle, Users, Target, Zap, Code, Brain, Cog } from 'lucide-react';
 
-const HomePage: React.FC = () => {
+// Update component definition to accept props
+interface HomePageProps {
+  navigateTo: (page: string) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
   const features = [
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
       title: 'Agile Excellence',
-      description: 'Master SCRUM, Kanban, SAFe, and other frameworks for optimal delivery'
+      description: 'Your Shortcut to Software That Wins. Beyond sprints – we engineer outcomes. Faster time-to-market, higher quality, delighted users. Partner with us for relentless value flow & real-time adaptability. Where your vision meets predictable execution.'
     },
     {
       icon: <Brain className="h-8 w-8 text-cyan-500" />,
@@ -52,15 +57,6 @@ const HomePage: React.FC = () => {
                 Expert consultancy in Agile delivery, AI innovation, and DevOps mastery. 
                 Accelerate your digital transformation journey.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center space-x-2">
-                  <span>Get Started</span>
-                  <ArrowRight className="h-5 w-5" />
-                </button>
-                <button className="border-2 border-cyan-300 text-cyan-300 hover:bg-cyan-300 hover:text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
-                  Learn More
-                </button>
-              </div>
             </div>
             <div className="relative">
               <img
@@ -135,8 +131,10 @@ const HomePage: React.FC = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
              Start Your Journey Today for a Free Agile Delivery Assessment with our expert Agile, AI, and DevOps solutions suite.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-            Start Your Journey Today
+          <button 
+            onClick={() => navigateTo('get-in-touch')}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+            Get Started
           </button>
         </div>
       </section>

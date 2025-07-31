@@ -12,42 +12,50 @@ import OurPartners from './pages/OurPartners';
 import JoinUs from './pages/JoinUs';
 import GetInTouch from './pages/GetInTouch';
 
-function App() {
+function App() 
+{
   const [currentPage, setCurrentPage] = useState('home');
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'what-we-do':
-        return <WhatWeDo />;
-      case 'who-we-serve':
-        return <WhoWeServe />;
-      case 'who-we-are':
-        return <WhoWeAre />;
-      case 'our-insights':
-        return <OurInsights />;
-      case 'aegis-ai-suite':
-        return <AegisAISuite />;
-      case 'our-partners':
-        return <OurPartners />;
-      case 'join-us':
-        return <JoinUs />;
-      case 'get-in-touch':
-        return <GetInTouch />;
-      default:
-        return <HomePage />;
-    }
-  };
+    // Create navigation handler
+    const navigateTo = (page: string) => {
+      setCurrentPage(page);
+      window.scrollTo(0, 0); // Scroll to top on page change
+    };
+  
+    const renderPage = () => {
+      switch (currentPage) {
+        case 'what-we-do':
+          return <WhatWeDo />;
+        case 'who-we-serve':
+          return <WhoWeServe />;
+        case 'who-we-are':
+          return <WhoWeAre />;
+        case 'our-insights':
+          return <OurInsights />;
+        case 'aegis-ai-suite':
+          return <AegisAISuite />;
+        case 'our-partners':
+          return <OurPartners />;
+        case 'join-us':
+          return <JoinUs />;
+        case 'get-in-touch':
+          return <GetInTouch />;
+        default:
+          // Pass navigateTo function to HomePage
+          return <HomePage navigateTo = {navigateTo} />;
+      }
+    };
 
-  return (
-    <div className="min-h-screen bg-white">
-      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-      <main className="pt-16">
-        {renderPage()}
-      </main>
-      <Footer setCurrentPage={setCurrentPage} />
-      <ScrollToTop />
-    </div>
-  );
+    return (
+      <div className="min-h-screen bg-white">
+        <Header currentPage={currentPage} setCurrentPage={navigateTo} />
+        <main className="pt-16">
+          {renderPage()}
+        </main>
+        <Footer setCurrentPage={navigateTo} />
+        <ScrollToTop />
+      </div>
+    );
 }
 
 export default App;
