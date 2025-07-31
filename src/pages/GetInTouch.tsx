@@ -24,11 +24,14 @@ const GetInTouch: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+
     try {
-      const response = await fetch(process.env.NODE_ENV === 'development' 
+      // Use absolute URL in production
+      const url = process.env.NODE_ENV === 'development' 
       ? '/.netlify/functions/send-email' 
-      : `${window.location.origin}/.netlify/functions/send-email`, 
-      {
+      : `${window.location.origin}/.netlify/functions/send-email`;
+      
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,21 +39,39 @@ const GetInTouch: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
+      // Handle response text safely
+      const responseText = await response.text();
+      let result: any;
+
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error(`Invalid JSON: ${responseText}`);
+      }
+
       if (response.ok) {
-        setSubmitStatus({ success: true, message: 'Message sent successfully!' });
+        setSubmitStatus({ 
+          success: true, 
+          message: result.message || 'Message sent successfully!' 
+        });
         // Reset form
         setFormData({ name: '', email: '', company: '', subject: '', message: '' });
       } else {
-        const errorData = await response.json();
-        setSubmitStatus({ success: false, message: errorData.error || 'Failed to send message' });
+        setSubmitStatus({ 
+          success: false, 
+          message: result.error || `Error: ${response.status}` 
+        });
       }
     } catch (error) {
-      setSubmitStatus({ success: false, message: 'Network error. Please try again.' });
+      setSubmitStatus({ 
+        success: false, 
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
     } finally {
       setIsSubmitting(false);
     }
     // Handle form submission here
-    console.log('Form submitted:', formData);
+    // console.log('Form submitted:', formData);
   };
 
   return (

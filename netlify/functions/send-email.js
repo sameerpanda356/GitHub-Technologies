@@ -1,11 +1,21 @@
 const mailgun = require("mailgun-js");
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST'
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
   };
+
+  // Handle OPTIONS request (CORS preflight)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== "POST") {
     return {
@@ -15,13 +25,14 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    if (data.honeypot) {
+   /* if (data.honeypot) {
       return {
         statusCode: 200,
         header,
         body: JSON.stringify({ message: "Email sent successfully" })
       };
-    }
+    } */
+    
     const data = JSON.parse(event.body);
     
     // Validate required fields
@@ -32,11 +43,13 @@ exports.handler = async (event, context) => {
       };
     }
 
+    // Initialize Mailgun AFTER validation
     const mg = mailgun({
       apiKey: process.env.MAILGUN_API_KEY,
       domain: process.env.MAILGUN_DOMAIN
     });
-
+    
+    // Prepare email
     const emailData = {
       from: `${data.name} <${data.email}>`,
       to: "contact@githubtechnologies.com", // Your email address
@@ -52,14 +65,17 @@ exports.handler = async (event, context) => {
       `
     };
 
+    // Send email
     await mg.messages().send(emailData);
     
     return {
       statusCode: 200,
+      headers,
       body: JSON.stringify({ message: "Email sent successfully" })
     };
     
   } catch (error) {
+    console.error("Full error:", error);
     return {
       statusCode: 500,
       headers,
