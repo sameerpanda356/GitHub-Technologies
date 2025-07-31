@@ -25,13 +25,13 @@ exports.handler = async (event) => {
   }
 
   try {
-    if (data.honeypot) {
+   /* if (data.honeypot) {
       return {
         statusCode: 200,
         header,
         body: JSON.stringify({ message: "Email sent successfully" })
       };
-    } 
+    } */
     
     const data = JSON.parse(event.body);
     
