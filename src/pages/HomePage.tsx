@@ -11,17 +11,34 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
       title: 'Agile Excellence',
-      description: 'Your Shortcut to Software That Wins. Beyond sprints – we engineer outcomes. Faster time-to-market, higher quality, delighted users. Partner with us for relentless value flow & real-time adaptability. Where your vision meets predictable execution.'
+      description:  ( <div className="space-y-2">
+      <p className="font-bold">Your Shortcut to Software That Wins.</p>
+      <p className="italic">Beyond sprints – we engineer outcomes. Faster time-to-market, higher quality, delighted users.</p>
+      <p className="font-bold">Partner with us for relentless value flow & real-time adaptability.</p>
+      <p className="italic">Where your vision meets predictable execution.</p>
+    </div>
+      )
     },
     {
       icon: <Brain className="h-8 w-8 text-cyan-500" />,
       title: 'AI Innovation',
-      description: 'Cutting-edge AI solutions and intelligent automation for your business'
+      description: ( <div className="space-y-2">
+      <p className="font-bold">AI Innovation × Agile Excellence = Unstoppable Delivery.</p>
+      <p className="italic">Ditch AI pilot purgatory. We integrate LLMs, automation, and predictive analytics into your Agile core.</p>
+      <p className="font-bold">De-risk innovation. Scale value. Own your evolution.</p>
+    </div>
+      )
     },
     {
       icon: <Cog className="h-8 w-8 text-orange-500" />,
       title: 'DevOps Mastery',
-      description: 'Streamlined CI/CD, infrastructure automation, and cloud optimization'
+      description: (
+        <div className="space-y-2">
+      <p className="font-bold">Beyond Tools: DevOps Mastery That Unlocks Agile’s Promise.</p>
+      <p className="italic">We break siloes, automate compliance, and harden your CI/CD backbone.</p>
+      <p className="font-bold">Ship features fearlessly. Innovate without bottlenecks.</p>
+    </div>
+      )
     }
   ];
 
@@ -50,7 +67,9 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+              <div className="space-y-2">
               "Agile. Automated. Augmented."{' '}
+              </div>
                 <span className="text-cyan-300">Smarter Delivery, Faster Transformation.</span>
               </h1>
               <p className="text-xl lg:text-2xl mb-8 text-blue-100">
@@ -82,12 +101,12 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-orange-900 mb-4">
               Why Choose Github Technologies?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We combine deep expertise in Agile methodologies with cutting-edge technology 
-              to deliver exceptional results for your business transformation.
+            <p className="font-bold">We Engineer End-to-End Digital Dominance.</p>
+            <p className="italic">No off-the-shelf tools. No locked-in platforms. Just pure delivery excellence – tailored to your battlefield.</p>
             </p>
           </div>
 
@@ -126,10 +145,10 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
       <section className="py-12 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">
-              Ready for predictable results?
+            <p className="italic"> Ready to deploy AI that delivers? </p>
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-             Start Your Journey Today for a Free Agile Delivery Assessment with our expert Agile, AI, and DevOps solutions suite.
+             Start Your Journey Today for Free Agile + AI Strategy Session with our expert Agile, AI, and DevOps solutions suite.
           </p>
           <button 
             onClick={() => navigateTo('get-in-touch')}

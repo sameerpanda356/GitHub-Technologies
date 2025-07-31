@@ -29,7 +29,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
 
   return (
     <footer className="bg-blue-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
@@ -42,7 +42,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
               <span className="text-xl font-bold">GitHub Technologies</span>
             </div>
             <p className="text-gray-300 mb-6">
-              Transforming businesses through agile excellence, AI innovation, and DevOps mastery.
+            <p className="italic">The market doesn’t reward ‘Agile.’ It rewards ships-that-win. We build warships.</p>
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
