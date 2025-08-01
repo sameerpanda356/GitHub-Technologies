@@ -144,15 +144,24 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             © 2020 GitHub Technologies. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Cookie Policy
-            </a>
+          <button
+            onClick={() => setCurrentPage('privacy-policy')}
+            className="text-gray-400 hover:text-white text-sm transition-colors"
+          >
+            Privacy Policy
+          </button>
+          <button
+            onClick={() => setCurrentPage('terms-of-service')}
+            className="text-gray-400 hover:text-white text-sm transition-colors"
+          >
+            Terms of Service
+          </button>
+          <button
+            onClick={() => setCurrentPage('cookie-policy')}
+            className="text-gray-400 hover:text-white text-sm transition-colors"
+          >
+            Cookie Policy
+          </button>
           </div>
         </div>
       </div>

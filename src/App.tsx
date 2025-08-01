@@ -11,6 +11,10 @@ import AegisAISuite from './pages/AegisAISuite';
 import OurPartners from './pages/OurPartners';
 import JoinUs from './pages/JoinUs';
 import GetInTouch from './pages/GetInTouch';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import CookiePolicy from './pages/CookiePolicy';
+
 
 function App() 
 {
@@ -40,6 +44,12 @@ function App()
           return <JoinUs />;
         case 'get-in-touch':
           return <GetInTouch />;
+        case 'privacy-policy':
+            return <PrivacyPolicy />;  
+        case 'terms-of-service':
+          return <TermsOfService />;
+        case 'cookie-policy':
+            return <CookiePolicy />;
         default:
           // Pass navigateTo function to HomePage
           return <HomePage navigateTo = {navigateTo} />;
