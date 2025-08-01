@@ -54,7 +54,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
-                href="https://twitter.com/githubtech" 
+                href="https://twitter.com/github_tech" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
