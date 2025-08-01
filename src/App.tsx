@@ -25,11 +25,11 @@ function App()
     const renderPage = () => {
       switch (currentPage) {
         case 'what-we-do':
-          return <WhatWeDo />;
+          return <WhatWeDo navigateTo = {navigateTo} />;
         case 'who-we-serve':
-          return <WhoWeServe />;
+          return <WhoWeServe navigateTo = {navigateTo} />;
         case 'who-we-are':
-          return <WhoWeAre />;
+          return <WhoWeAre navigateTo = {navigateTo} />;
         case 'our-insights':
           return <OurInsights />;
         case 'aegis-ai-suite':

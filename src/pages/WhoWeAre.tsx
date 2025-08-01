@@ -1,7 +1,12 @@
 import React from 'react';
 import { Users, Award, Target, Heart, Star, Linkedin, Mail } from 'lucide-react';
 
-const WhoWeAre: React.FC = () => {
+// Update component definition to accept props
+interface WhoWeAreProps {
+  navigateTo: (page: string) => void;
+}
+
+const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
   const values = [
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
@@ -238,12 +243,14 @@ const WhoWeAre: React.FC = () => {
       {/* CTA Section */}
       <section className="py-12 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Work Together?</h2>
+          <h2 className="text-4xl font-bold mb-6"><p className='italic'>Ready to Work Together?</p></h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join the hundreds of organizations that have transformed their business with GitHub Technologies.
             Let's discuss how we can help you achieve your goals.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+          <button 
+            onClick={() => navigateTo('get-in-touch')}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             Start the Conversation
           </button>
         </div>

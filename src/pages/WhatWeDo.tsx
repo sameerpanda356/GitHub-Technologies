@@ -1,7 +1,12 @@
 import React from 'react';
 import { Users, Target, Zap, Brain, Cog, Code, CheckCircle, ArrowRight } from 'lucide-react';
 
-const WhatWeDo: React.FC = () => {
+// Update component definition to accept props
+interface WhatWeDoProps {
+  navigateTo: (page: string) => void;
+}
+
+const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
   const agileFrameworks = [
     {
       name: 'SCRUM',
@@ -171,13 +176,14 @@ const WhatWeDo: React.FC = () => {
       {/* CTA Section */}
       <section className="py-12 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
+          <h2 className="text-4xl font-bold mb-6"><p className='italic'>Ready for predictable results?</p></h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Let's discuss how our expertise can accelerate your transformation journey.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+          <button onClick={() => navigateTo('get-in-touch')}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             Schedule a Consultation
-          </button>
+            </button>
         </div>
       </section>
     </div>

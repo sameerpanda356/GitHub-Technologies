@@ -1,7 +1,12 @@
 import React from 'react';
 import { Building, Briefcase, Zap, TrendingUp, Users, Globe, CheckCircle } from 'lucide-react';
 
-const WhoWeServe: React.FC = () => {
+// Update component definition to accept props
+interface WhoWeServeProps {
+  navigateTo: (page: string) => void;
+}
+
+const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
   const industries = [
     {
       icon: <Building className="h-12 w-12 text-blue-600" />,
@@ -227,14 +232,16 @@ const WhoWeServe: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
+      <section className="py-8 bg-gradient-to-r from-blue-600 to-cyan-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Is Your Industry Listed?</h2>
+          <h2 className="text-4xl font-bold mb-6"><p className='italic'>Is Your Industry Listed?</p></h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Even if you don't see your specific industry above, GitHub Technologies' proven methodologies
             adapt to any business context. Let's discuss your unique challenges.
           </p>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+          <button 
+            onClick={() => navigateTo('get-in-touch')}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             Discuss Your Needs
           </button>
         </div>
