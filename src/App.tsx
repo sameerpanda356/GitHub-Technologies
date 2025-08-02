@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -14,15 +14,32 @@ import GetInTouch from './pages/GetInTouch';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CookiePolicy from './pages/CookiePolicy';
+import FutureOfAgile from './pages/FutureOfAgile';
 
+function App(){
 
-function App() 
-{
-  const [currentPage, setCurrentPage] = useState('home');
+  const getCurrentPage = () => {
+    if (window.location.hash) {
+      return window.location.hash.substring(2); // Remove '#/'
+    }
+    const path = window.location.pathname.substring(1);
+    return path || 'home';
+  };
+
+  const [currentPage, setCurrentPage] = useState(getCurrentPage());
+
+    // Add this useEffect to handle initial load
+    useEffect(() => {
+      const page = getCurrentPage();
+      if (page !== currentPage) {
+        setCurrentPage(page);
+      }
+    }, []);
 
     // Create navigation handler
     const navigateTo = (page: string) => {
       setCurrentPage(page);
+      window.history.pushState({}, '', `/${page}`);
       window.scrollTo(0, 0); // Scroll to top on page change
     };
   
@@ -50,6 +67,8 @@ function App()
           return <TermsOfService />;
         case 'cookie-policy':
             return <CookiePolicy />;
+        case 'future-of-agile':
+            return <FutureOfAgile />;
         default:
           // Pass navigateTo function to HomePage
           return <HomePage navigateTo = {navigateTo} />;
