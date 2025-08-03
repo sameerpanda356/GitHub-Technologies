@@ -13,7 +13,7 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Back button */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-24 pt-8">
           <button 
             onClick={() => navigateTo?.('our-insights')}
             className="flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8"
@@ -24,7 +24,7 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
       </div>
 
       {/* Article Header */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-14 mb-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-32 mb-12">
         <div className="mb-4">
           <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
             AI & Agile
@@ -50,12 +50,12 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
         <img
           src="https://images.pexels.com/photos/3183153/pexels-photo-3183153.jpeg"
           alt="AI and Agile"
-          className="w-full h-auto rounded-xl shadow-lg mb-8"
+          className="w-full max-w-4xl h-64 md:h-80 mx-auto rounded-xl shadow-lg mb-8 object-cover"
         />
       </div>
 
       {/* Article Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="prose prose-lg max-w-none">
           <p className="lead text-xl text-gray-600 mb-8">
             Artificial intelligence is revolutionizing agile methodologies, from automated story point estimation to intelligent sprint optimization. This article explores practical strategies for implementing AI-driven agile practices that can transform your team's productivity and predictability.
