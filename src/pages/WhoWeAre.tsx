@@ -38,10 +38,10 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
       image: '/Rk.png'
     },
     {
-      name: 'Michael Rodriguez',
+      name: 'Nina Emory',
       title: 'CTO & Co-Founder',
       bio: 'DevOps pioneer with 20+ years experience. Former Principal Architect at leading cloud provider. Expert in AI/ML infrastructure.',
-      image: 'https://images.pexels.com/photos/3184611/pexels-photo-3184611.jpeg'
+      image: '/Nb.png'
     },
     {
       name: 'Divyanshu Garg',
