@@ -150,7 +150,7 @@ interface OurInsightsProps {
       </section>
 
       {/* Featured Article */}
-      <section className="py-12 bg-white">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured Article</h2>
@@ -158,8 +158,8 @@ interface OurInsightsProps {
 
           <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl overflow-hidden shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <div className="p-8 lg:p-12">
-                <div className="mb-4">
+              <div className="p-8 lg:p-2">
+                <div className="mb-2">
                   <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     {featuredArticle.category}
                   </span>
@@ -216,7 +216,7 @@ interface OurInsightsProps {
       </section>
 
       {/* Articles Section */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-8 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Latest Articles</h2>
