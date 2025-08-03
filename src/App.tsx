@@ -37,10 +37,16 @@ function App(){
     }, []);
 
     // Create navigation handler
-    const navigateTo = (page: string) => {
+    /*const navigateTo = (page: string) => {
       setCurrentPage(page);
       window.history.pushState({}, '', `/${page}`);
       window.scrollTo(0, 0); // Scroll to top on page change
+    };*/
+
+    const navigateTo = (page: string) => {
+      setCurrentPage(page);
+      window.location.hash = `/${page}`;
+      window.scrollTo(0, 0);
     };
   
     const renderPage = () => {
@@ -52,7 +58,8 @@ function App(){
         case 'who-we-are':
           return <WhoWeAre navigateTo = {navigateTo} />;
         case 'our-insights':
-          return <OurInsights />;
+          return <OurInsights navigateTo={navigateTo} />;
+          //return <OurInsights />;
         case 'aegis-ai-suite':
           return <AegisAISuite />;
         case 'our-partners':
@@ -68,7 +75,8 @@ function App(){
         case 'cookie-policy':
             return <CookiePolicy />;
         case 'future-of-agile':
-            return <FutureOfAgile />;
+           return <FutureOfAgile navigateTo={navigateTo} />;
+          // return <FutureOfAgile />;
         default:
           // Pass navigateTo function to HomePage
           return <HomePage navigateTo = {navigateTo} />;

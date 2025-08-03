@@ -1,7 +1,12 @@
 import React from 'react';
 import { Calendar, User, ArrowRight, TrendingUp, BookOpen, Video, Download } from 'lucide-react';
 
-const OurInsights: React.FC = () => {
+interface OurInsightsProps {
+  navigateTo?: (page: string) => void;
+}
+
+//const OurInsights: React.FC = () => {
+  const OurInsights: React.FC<OurInsightsProps> = ({ navigateTo }) => {
   const featuredArticle = {
     title: 'The Future of Agile: Integrating AI into Sprint Planning',
     excerpt: 'Discover how artificial intelligence is revolutionizing agile methodologies, from automated story point estimation to intelligent sprint optimization. Learn practical strategies for implementing AI-driven agile practices.',
@@ -176,11 +181,13 @@ const OurInsights: React.FC = () => {
                   </div>
                   <span className="text-gray-500">{featuredArticle.readTime}</span>
                 </div>
-                <button 
+                  <button 
+                  //onClick={() => navigateTo?.('future-of-agile')} //to open the new window in the same tab.
                   onClick={() => {
+                    
                     const url = `${window.location.origin}/#/future-of-agile`;
                     const newWindow = window.open(url, '_blank');
-                    
+
                     // Force initialization
                     if (newWindow) {
                       newWindow.onload = () => {
@@ -188,7 +195,7 @@ const OurInsights: React.FC = () => {
                           newWindow.location.href = url;
                         }
                       };
-                    }
+                  navigateTo?.('url')}
                   }}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-300"
                 >

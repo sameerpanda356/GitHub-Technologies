@@ -3,8 +3,12 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
 
 /*const FutureOfAgile: React.FC = () => {
   const navigate = useNavigate();*/
+  interface FutureOfAgileProps {
+    navigateTo?: (page: string) => void;
+  }
 
-  const FutureOfAgile: React.FC<{ navigateTo?: (page: string) => void }> = ({ navigateTo }) => {
+  //const FutureOfAgile: React.FC<{ navigateTo?: (page: string) => void }> = ({ navigateTo }) => {
+  const FutureOfAgile: React.FC<FutureOfAgileProps> = ({ navigateTo }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
