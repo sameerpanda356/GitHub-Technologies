@@ -24,13 +24,13 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
       </div>
 
       {/* Article Header */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-        <div className="mb-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-14 mb-12">
+        <div className="mb-4">
           <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
             AI & Agile
           </span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <h1 className="text-4xl md:text-3xl font-bold text-gray-900 mb-4">
           The Future of Agile: Integrating AI into Sprint Planning
         </h1>
         <div className="flex flex-wrap items-center gap-4 text-gray-600 mb-8">
@@ -55,7 +55,7 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
       </div>
 
       {/* Article Content */}
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div className="prose prose-lg max-w-none">
           <p className="lead text-xl text-gray-600 mb-8">
             Artificial intelligence is revolutionizing agile methodologies, from automated story point estimation to intelligent sprint optimization. This article explores practical strategies for implementing AI-driven agile practices that can transform your team's productivity and predictability.
@@ -197,7 +197,7 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
       </div>
 
       {/* Newsletter CTA */}
-      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-12">
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-8">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Want More Insights Like This?</h2>
           <p className="text-lg mb-8">
