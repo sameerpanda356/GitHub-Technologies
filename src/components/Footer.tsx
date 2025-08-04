@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
               <img 
-                src="/2.png" 
+                src="/logo.png" 
                 alt="GitHub Technologies Logo" 
                 className="h-8 w-auto"
               />

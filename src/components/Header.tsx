@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
             onClick={() => handleNavClick('home')}
           >
             <img 
-              src="/2.png" 
+              src="/logo.png" 
               alt="GitHub Technologies Logo" 
               className="h-10 w-auto"
             />
