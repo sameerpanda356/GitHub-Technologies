@@ -2,6 +2,17 @@
   functions = "netlify/functions"
   publish = "dist"
 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]  # Force root URL to /home
+  from = "/"
+  to = "/home"
+  status = 301
+  force = true
+
 [[plugins]]
   package = "@netlify/plugin-functions-install-core"
 

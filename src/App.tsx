@@ -36,6 +36,15 @@ function App(){
       }
     }, []);
 
+    // Add this useEffect hook near the top of your App component
+    useEffect(() => {
+      // Redirect root ("/") to "/home" on initial load
+      if (window.location.pathname === '/') {
+        navigateTo('home'); // Use your existing navigation function
+        window.history.replaceState({}, '', '/home'); // Update URL without adding to history
+      }
+    }, []); // Empty dependency array = runs once on mount
+
     // Create navigation handler
     const navigateTo = (page: string) => {
       setCurrentPage(page);
