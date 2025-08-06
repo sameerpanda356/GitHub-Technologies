@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, Award, Target, Heart, Star, Linkedin, Mail } from 'lucide-react';
+import { Users, Award, Target, Heart, Star} from 'lucide-react';
 
 // Update component definition to accept props
 interface WhoWeAreProps {
@@ -40,7 +40,7 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
     {
       name: 'Nina Emory',
       title: 'CTO & Co-Founder',
-      bio: 'DevOps pioneer with 20+ years experience. Former Principal Architect at leading cloud provider. Expert in AI/ML infrastructure.',
+      bio: 'As CTO & Co-Founder, I lead with a passion for innovation and excellence in technology. Focused on building transformative solutions, fostering engineering brilliance, and accelerating business growth through tech-driven strategies.',
       image: '/Nb.png'
     },
     {
