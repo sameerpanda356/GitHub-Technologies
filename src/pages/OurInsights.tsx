@@ -79,19 +79,25 @@ interface OurInsightsProps {
       title: 'Enterprise Agile Transformation Guide',
       description: 'A comprehensive 40-page guide for planning and executing large-scale agile transformations.',
       pages: '40 pages',
-      format: 'PDF'
+      format: 'PDF',
+      url: '/whitepapers/enterprise-agile-transformation.pdf',
+      filename: 'Enterprise-Agile-Transformation-Guide.pdf'
     },
     {
       title: 'AI in Software Development: Market Analysis 2025',
       description: 'Research report on AI adoption trends, challenges, and opportunities in software development.',
       pages: '28 pages',
-      format: 'PDF'
+      format: 'PDF',
+      url: '/whitepapers/ai-market-analysis.pdf',
+      filename: 'AI-Market-Analysis-2025.pdf'
     },
     {
       title: 'DevOps Maturity Assessment Framework',
       description: 'A practical framework for assessing and improving your organization\'s DevOps maturity.',
       pages: '15 pages',
-      format: 'PDF'
+      format: 'PDF',
+      url: '/whitepapers/devops-maturity-assessment.pdf',
+      filename: 'DevOps-Maturity-Assessment-Framework.pdf'
     }
   ];
 
@@ -127,6 +133,35 @@ interface OurInsightsProps {
     'Team Management',
     'Cloud & DevOps'
   ];
+  
+  const handleDownload = async (url: string, filename: string) => {
+    try {
+      // Fetch the file as a blob
+      const response = await fetch(url);
+      const blob = await response.blob();
+      
+      // Create a blob URL
+      const blobUrl = URL.createObjectURL(blob);
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      
+      // Trigger download
+      link.click();
+      
+      // Clean up
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      }, 100);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Download failed. Please try again later.');
+    }
+  };
 
   const [selectedCategory, setSelectedCategory] = React.useState('All Categories');
 
@@ -185,7 +220,7 @@ interface OurInsightsProps {
                   //onClick={() => navigateTo?.('future-of-agile')} //to open the new window in the same tab.
                   onClick={() => {
                     
-                    const url = `${window.location.origin}/#/future-of-agile`;
+                    const url = `${window.location.origin}/future-of-agile`;
                     const newWindow = window.open(url, '_blank');
 
                     // Force initialization
@@ -196,7 +231,7 @@ interface OurInsightsProps {
                         }
                       };
                   navigateTo?.('url')}
-                  }}
+                  }} 
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-all duration-300"
                 >
                   <span>Read Full Article</span>
@@ -304,10 +339,13 @@ interface OurInsightsProps {
                         <span>{paper.pages}</span>
                         <span>{paper.format}</span>
                       </div>
-                      <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                      <button 
+                        onClick={() => handleDownload(paper.url, paper.filename)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                        >
                         <Download className="h-4 w-4" />
                         <span>Download</span>
-                      </button>
+                    </button>
                     </div>
                   </div>
                 ))}
