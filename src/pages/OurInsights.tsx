@@ -77,8 +77,8 @@ interface OurInsightsProps {
   const whitepapers = [
     {
       title: 'Enterprise Agile Transformation Guide',
-      description: 'A comprehensive 40-page guide for planning and executing large-scale agile transformations.',
-      pages: '40 pages',
+      description: 'A comprehensive 15-page guide for planning and executing large-scale agile transformations.',
+      pages: '15 pages',
       format: 'PDF',
       url: '/whitepapers/enterprise-agile-transformation.pdf',
       filename: 'Enterprise-Agile-Transformation-Guide.pdf'
@@ -86,7 +86,7 @@ interface OurInsightsProps {
     {
       title: 'AI in Software Development: Market Analysis 2025',
       description: 'Research report on AI adoption trends, challenges, and opportunities in software development.',
-      pages: '28 pages',
+      pages: '20 pages',
       format: 'PDF',
       url: '/whitepapers/ai-market-analysis.pdf',
       filename: 'AI-Market-Analysis-2025.pdf'
@@ -94,7 +94,7 @@ interface OurInsightsProps {
     {
       title: 'DevOps Maturity Assessment Framework',
       description: 'A practical framework for assessing and improving your organization\'s DevOps maturity.',
-      pages: '15 pages',
+      pages: '10 pages',
       format: 'PDF',
       url: '/whitepapers/devops-maturity-assessment.pdf',
       filename: 'DevOps-Maturity-Assessment-Framework.pdf'
