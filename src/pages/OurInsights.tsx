@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, User, ArrowRight, TrendingUp, BookOpen, Video, Download } from 'lucide-react';
+import { Calendar, User, ArrowRight, BookOpen, Video, Download } from 'lucide-react';
 
 interface OurInsightsProps {
   navigateTo?: (page: string) => void;
@@ -158,8 +158,17 @@ interface OurInsightsProps {
         URL.revokeObjectURL(blobUrl);
       }, 100);
     } catch (error) {
-      console.error('Download failed:', error);
-      alert('Download failed. Please try again later.');
+      console.error('Download error:', error);
+    
+    // Proper error handling for TypeScript's unknown type
+    let errorMessage = 'Failed to download file';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    }
+    
+    alert(`Download failed: ${errorMessage}`);
     }
   };
 

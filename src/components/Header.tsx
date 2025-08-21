@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, WrapText, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   currentPage: string;
@@ -15,7 +15,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
     { name: 'Who We Serve', id: 'who-we-serve' },
     { name: 'Who We Are', id: 'who-we-are' },
     { name: 'Our Insights', id: 'our-insights' },
-    { name: 'AegisAI Suite', id: 'aegis-ai-suite' },
+    //{ name: 'AegisAI Suite', id: 'aegis-ai-suite' },
+    { name: 'AI-Ready Data Centers', id: 'ai-data-centers' },
     { name: 'Our Partners', id: 'our-partners' },
     { name: 'Join Us', id: 'join-us' },
     { name: 'Get in Touch', id: 'get-in-touch' },

@@ -7,7 +7,8 @@ import WhatWeDo from './pages/WhatWeDo';
 import WhoWeServe from './pages/WhoWeServe';
 import WhoWeAre from './pages/WhoWeAre';
 import OurInsights from './pages/OurInsights';
-import AegisAISuite from './pages/AegisAISuite';
+//import AegisAISuite from './pages/AegisAISuite';
+import AIPodExpertise from './pages/AIPodExpertise';
 import OurPartners from './pages/OurPartners';
 import JoinUs from './pages/JoinUs';
 import GetInTouch from './pages/GetInTouch';
@@ -62,8 +63,10 @@ function App(){
           return <WhoWeAre navigateTo = {navigateTo} />;
         case 'our-insights':
           return <OurInsights navigateTo={navigateTo} />;
-        case 'aegis-ai-suite':
-          return <AegisAISuite />;
+       // case 'aegis-ai-suite':
+       //   return <AegisAISuite />;
+       case 'ai-data-centers':
+          return <AIPodExpertise />;
         case 'our-partners':
           return <OurPartners />;
         case 'join-us':
