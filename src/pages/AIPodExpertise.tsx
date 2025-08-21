@@ -62,7 +62,13 @@ const handleDownloadBrochure = async () => {
     }
   };
 
-const AIPodExpertise = () => {
+// Update component definition to accept props
+interface AIPodExpertiseProps {
+  navigateTo: (page: string) => void;
+}
+
+//const AIPodExpertise = () => {
+  const AIPodExpertise: React.FC<AIPodExpertiseProps> = ({ navigateTo }) => {
   // Team members data
   const teamMembers = [
     {
@@ -169,7 +175,9 @@ const AIPodExpertise = () => {
               Purpose-built infrastructure for next-generation AI workloads. Deploy scalable, efficient, and sustainable compute anywhere.
             </p>
             <div className="flex justify-center space-x-4">
-              <button className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              <button 
+                onClick={() => navigateTo('get-in-touch')}
+                className="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
                 Request Consultation
               </button>
               <button 

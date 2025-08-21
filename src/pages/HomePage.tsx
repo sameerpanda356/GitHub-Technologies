@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle, Users, Target, Zap, Code, Brain, Cog } from 'lucide-react';
+import {CheckCircle, Target, Brain, Cog } from 'lucide-react';
 
 // Update component definition to accept props
 interface HomePageProps {

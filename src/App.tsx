@@ -66,7 +66,7 @@ function App(){
        // case 'aegis-ai-suite':
        //   return <AegisAISuite />;
        case 'ai-data-centers':
-          return <AIPodExpertise />;
+          return <AIPodExpertise navigateTo={navigateTo}/>;
         case 'our-partners':
           return <OurPartners />;
         case 'join-us':
