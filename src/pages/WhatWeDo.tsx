@@ -1,5 +1,6 @@
 import React from 'react';
-import { Users, Target, Zap, Brain, Cog, Code, CheckCircle, ArrowRight } from 'lucide-react';
+import { Users, Target, Zap, Brain, Cog, Code, CheckCircle, ArrowRight, BatteryCharging, Leaf, BarChart } from 'lucide-react';
+
 
 // Update component definition to accept props
 interface WhatWeDoProps {
@@ -69,8 +70,9 @@ const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
           <div className="text-center">
             <h1 className="text-5xl font-bold mb-6">What We Do</h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              We specialize in transforming businesses through expert Agile delivery, 
-              cutting-edge AI solutions, and robust DevOps practices.
+              We deliver SaaS solutions that combine AI, Agile, and DevOps to help organizations
+              scale faster and smarter. Our platforms are designed for real-time insights, automation,
+              and secure digital transformation.
             </p>
           </div>
         </div>
@@ -108,6 +110,50 @@ const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
           </div>
         </div>
       </section>
+
+      <div className="mt-12 text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Energy-Focused SaaS Solutions
+          </h2>
+          <p className="mt-2 text-gray-600 text-center max-w-2xl text-xl mx-auto">
+            To support Europe’s energy transition, we specialize in SaaS platforms for utilities,
+            grid operators, and energy-intensive industries.
+          </p>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="p-6 rounded-2xl shadow hover:shadow-lg transition bg-sky-50 text-center">
+              <Zap className="mx-auto w-10 h-10 text-emerald-600" />
+              <h4 className="mt-4 font-semibold">Grid Congestion Relief</h4>
+              <p className="text-sm text-gray-600 mt-2">
+                SaaS-driven load balancing to prevent bottlenecks and improve reliability.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl shadow hover:shadow-lg transition bg-sky-50 text-center">
+              <BatteryCharging className="mx-auto w-10 h-10 text-emerald-600" />
+              <h4 className="mt-4 font-semibold">Battery Optimization</h4>
+              <p className="text-sm text-gray-600 mt-2">
+                Maximize ROI of storage assets with smart charge/discharge scheduling.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl shadow hover:shadow-lg transition bg-sky-50 text-center">
+              <Leaf className="mx-auto w-10 h-10 text-emerald-600" />
+              <h4 className="mt-4 font-semibold">CO₂ Tracking</h4>
+              <p className="text-sm text-gray-600 mt-2">
+                Monitor carbon intensity in real time and align with EU climate goals.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl shadow hover:shadow-lg transition bg-sky-50 text-center">
+              <BarChart className="mx-auto w-10 h-10 text-emerald-600" />
+              <h4 className="mt-4 font-semibold">Forecasting</h4>
+              <p className="text-sm text-gray-600 mt-2">
+                AI-powered predictions for demand, supply, and energy price volatility.
+              </p>
+            </div>
+          </div>
+        </div>
 
       {/* Agile Frameworks Section */}
       <section className="py-12 bg-gray-50">
