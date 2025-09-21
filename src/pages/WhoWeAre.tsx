@@ -1,12 +1,16 @@
 import React from 'react';
-import { Users, Award, Target, Heart, Star} from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { Users, Award, Target, Heart, Star, Cpu, Leaf, Globe} from 'lucide-react';
 
 // Update component definition to accept props
-interface WhoWeAreProps {
-  navigateTo: (page: string) => void;
-}
+//interface WhoWeAreProps {
+//  navigateTo: (page: string) => void;
+//}
 
-const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
+export default function WhoWeAre() {
+  const navigate = useNavigate();
+
+//const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
   const values = [
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
@@ -80,24 +84,18 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <h1 className="text-5xl font-bold mb-6">Who We Are</h1>
               <p className="text-xl text-blue-100 mb-8">
-                GitHub Technologies is a leading consultancy specializing in agile transformation,
-                AI innovation, and DevOps excellence. We're passionate about helping 
-                organizations unlock their full potential through technology and proven methodologies.
+                  We are a SaaS-driven technology company focused on solving some of the
+                  most pressing challenges in the energy sector. By combining deep
+                  expertise in cloud-native software, AI, and energy optimization, we
+                  empower utilities, grid operators, and enterprises to transition
+                  toward a sustainable future.
               </p>
-              <div className="flex space-x-4">
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300">
-                  Meet Our Team
-                </button>
-                <button className="border-2 border-cyan-300 text-cyan-300 hover:bg-cyan-300 hover:text-blue-900 px-6 py-3 rounded-lg font-semibold transition-all duration-300">
-                  Our Story
-                </button>
-              </div>
             </div>
             <div>
               <img
@@ -117,19 +115,17 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
             <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8">
               <h2 className="text-3xl font-bold text-blue-900 mb-6">Our Mission</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                To empower organizations worldwide by delivering exceptional agile transformation, 
-                AI innovation, and DevOps solutions that drive sustainable growth, enhance 
-                operational efficiency, and create lasting competitive advantages in an 
-                ever-evolving digital landscape.
+                  To empower organizations worldwide by delivering SaaS-driven agile transformation, AI innovation, 
+                  and DevOps solutions that accelerate the energy transition, enhance operational efficiency, 
+                  and create lasting sustainable growth in an ever-evolving digital landscape.
               </p>
             </div>
             <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8">
               <h2 className="text-3xl font-bold text-orange-900 mb-6">Our Vision</h2>
               <p className="text-lg text-gray-700 leading-relaxed">
-                To be the global leader in agile and digital transformation consulting, 
-                recognized for our innovative solutions, exceptional client outcomes, 
-                and commitment to building resilient, adaptive organizations that thrive 
-                in the digital age.
+                  To be a global leader in energy-focused digital transformation, recognized for innovative SaaS solutions, 
+                  measurable sustainability impact, and a commitment to building resilient, adaptive organizations 
+                  that thrive in the clean energy era.
               </p>
             </div>
           </div>
@@ -160,6 +156,40 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
           </div>
         </div>
       </section>
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Cpu className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">SaaS Innovation</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Scalable, secure, and cloud-native platforms built for the energy
+              domain.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Leaf className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">Sustainability</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Driving Europe’s decarbonization goals with carbon tracking and
+              optimization tools.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Users className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">Cross-Disciplinary Team</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Experts from energy, SaaS, and AI domains working together to
+              deliver impact.
+            </p>
+          </div>
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Globe className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">European Focus</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Solutions aligned with EU energy transition policies and Net Zero
+              ambitions.
+            </p>
+          </div>
+        </div>
 
       {/* Leadership Team */}
       <section className="py-12 bg-white">
@@ -249,7 +279,7 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
             Let's discuss how we can help you achieve your goals.
           </p>
           <button 
-            onClick={() => navigateTo('get-in-touch')}
+            onClick={() => navigate("/get-in-touch")}
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             Start the Conversation
           </button>
@@ -257,6 +287,11 @@ const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
       </section>
     </div>
   );
-};
+}
 
-export default WhoWeAre;
+
+//export default WhoWeAre;
+
+
+
+
