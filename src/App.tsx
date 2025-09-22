@@ -1,102 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
-import HomePage from './pages/HomePage';
-import WhatWeDo from './pages/WhatWeDo';
-import WhoWeServe from './pages/WhoWeServe';
-import WhoWeAre from './pages/WhoWeAre';
-import OurInsights from './pages/OurInsights';
-//import AegisAISuite from './pages/AegisAISuite';
-import AIPodExpertise from './pages/AIPodExpertise';
-import OurPartners from './pages/OurPartners';
-import JoinUs from './pages/JoinUs';
-import GetInTouch from './pages/GetInTouch';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import CookiePolicy from './pages/CookiePolicy';
-import FutureOfAgile from './pages/FutureOfAgile';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import * as React from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import HomePage from "./pages/HomePage";
+import EnergySaaS from "./pages/EnergySaaS";
+import WhatWeDo from "./pages/WhatWeDo";
+import WhoWeAre from "./pages/WhoWeAre";
+import WhoWeServe from "./pages/WhoWeServe";
+import OurInsights from "./pages/OurInsights";
+import GetInTouch from "./pages/GetInTouch";
+import OurPartners from "./pages/OurPartners";
+import JoinUs from "./pages/JoinUs";
+import FutureOfAgile from "./pages/FutureOfAgile";
 
-function App(){
+export default function App() {
+  return (
+    <Router>
+      <div className="min-h-screen flex flex-col bg-white">
+        {/* Shared Header */}
+        <Header />
 
-  const getCurrentPage = () => {
-    if (window.location.hash) {
-      return window.location.hash.substring(2); // Remove '#/'
-    }
-    const path = window.location.pathname.substring(1);
-    return path || 'home';
-  };
-
-  const [currentPage, setCurrentPage] = useState(getCurrentPage());
-
-    // Add this useEffect to handle initial load
-    useEffect(() => {
-      const page = getCurrentPage();
-      if (page !== currentPage) {
-        setCurrentPage(page);
-      }
-    }, []);
-
-    // Add this useEffect hook near the top of your App component
-    useEffect(() => {
-      // Redirect root ("/") to "/home" on initial load
-      if (window.location.pathname === '/') {
-        navigateTo('home'); // Use your existing navigation function
-        window.history.replaceState({}, '', '/home'); // Update URL without adding to history
-      }
-    }, []); // Empty dependency array = runs once on mount
-
-    // Create navigation handler
-    const navigateTo = (page: string) => {
-      setCurrentPage(page);
-      window.history.pushState({}, '', `/${page}`);
-      window.scrollTo(0, 0); // Scroll to top on page change
-    };
-  
-    const renderPage = () => {
-      switch (currentPage) {
-        case 'what-we-do':
-          return <WhatWeDo navigateTo = {navigateTo} />;
-        case 'who-we-serve':
-          return <WhoWeServe navigateTo = {navigateTo} />;
-        case 'who-we-are':
-          return <WhoWeAre navigateTo = {navigateTo} />;
-        case 'our-insights':
-          return <OurInsights navigateTo={navigateTo} />;
-       // case 'aegis-ai-suite':
-       //   return <AegisAISuite />;
-       case 'ai-data-centers':
-          return <AIPodExpertise navigateTo={navigateTo}/>;
-        case 'our-partners':
-          return <OurPartners />;
-        case 'join-us':
-          return <JoinUs />;
-        case 'get-in-touch':
-          return <GetInTouch />;
-        case 'privacy-policy':
-            return <PrivacyPolicy />;  
-        case 'terms-of-service':
-          return <TermsOfService />;
-        case 'cookie-policy':
-            return <CookiePolicy />;
-        case 'future-of-agile':
-            return <FutureOfAgile navigateTo={navigateTo} />;
-        default:
-          // Pass navigateTo function to HomePage
-          return <HomePage navigateTo = {navigateTo} />;
-      }
-    };
-
-    return (
-      <div className="min-h-screen bg-white">
-        <Header currentPage={currentPage} setCurrentPage={navigateTo} />
-        <main className="pt-16">
-          {renderPage()}
+        <main className="flex-grow pt-16">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/energy-saas" element={<EnergySaaS />} />
+          <Route path="/what-we-do" element={<WhatWeDo />} />
+          <Route path="/who-we-are" element={<WhoWeAre />} />
+          <Route path="/who-we-serve" element={<WhoWeServe />} />
+          <Route path="/our-insights" element={<OurInsights />} />
+          <Route path="/our-partners" element={<OurPartners />} />
+          <Route path="/future-of-agile" element={<FutureOfAgile />} />
+          <Route path="/join-us" element={<JoinUs />} />
+          <Route path="/get-in-touch" element={<GetInTouch />} />
+        </Routes>
         </main>
-        <Footer setCurrentPage={navigateTo} />
+
+        {/* Shared Footer */}
+        <Footer />
         <ScrollToTop />
       </div>
-    );
+    </Router>
+  );
 }
-
-export default App;

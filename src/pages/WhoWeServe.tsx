@@ -1,12 +1,16 @@
 import React from 'react';
-import { Building, Briefcase, Zap, TrendingUp, Users, Globe, CheckCircle } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { Factory, Building2 , Building, Briefcase, Zap, Leaf, TrendingUp, Users, Globe, CheckCircle } from 'lucide-react';
 
 // Update component definition to accept props
-interface WhoWeServeProps {
-  navigateTo: (page: string) => void;
-}
+// interface WhoWeServeProps {
+//  navigateTo: (page: string) => void;
+//}
 
-const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
+//const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
+  export default function WhoWeServe() {
+  const navigate = useNavigate();
+
   const industries = [
     {
       icon: <Building className="h-12 w-12 text-blue-600" />,
@@ -102,8 +106,10 @@ const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
           <div className="text-center">
             <h1 className="text-5xl font-bold mb-6">Who We Serve</h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              We partner with organizations across industries to accelerate their digital transformation 
-              and achieve sustainable competitive advantage.
+              Our SaaS solutions are built to empower stakeholders across the energy
+              value chain — from utilities and grid operators to energy-intensive
+              industries — helping them optimize operations, reduce emissions, and
+              accelerate the clean energy transition.
             </p>
           </div>
         </div>
@@ -157,6 +163,45 @@ const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
           </div>
         </div>
       </section>
+
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Building2 className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">Utilities</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Gain real-time insights into demand, optimize renewable
+              integration, and improve grid reliability with SaaS-driven
+              intelligence.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Zap className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">Grid Operators</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Balance load, relieve congestion, and monitor flexibility across
+              distributed energy resources.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Factory className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">Industrial Consumers</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Reduce energy costs and carbon footprint with predictive analytics
+              and optimized storage/consumption strategies.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
+            <Leaf className="mx-auto w-10 h-10 text-emerald-600" />
+            <h3 className="mt-4 font-semibold">Sustainability Teams</h3>
+            <p className="text-gray-600 text-sm mt-2">
+              Track and report emissions in real time, align with EU climate
+              regulations, and achieve ESG targets.
+            </p>
+          </div>
+        </div>
 
       {/* Company Types Section */}
       <section className="py-12 bg-gray-50">
@@ -240,7 +285,7 @@ const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
             adapt to any business context. Let's discuss your unique challenges.
           </p>
           <button 
-            onClick={() => navigateTo('get-in-touch')}
+            onClick={() => navigate("/get-in-touch")}
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             Discuss Your Needs
           </button>
@@ -250,4 +295,4 @@ const WhoWeServe: React.FC<WhoWeServeProps> = ({ navigateTo }) => {
   );
 };
 
-export default WhoWeServe;
+// export default WhoWeServe;

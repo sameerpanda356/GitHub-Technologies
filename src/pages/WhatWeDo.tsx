@@ -1,13 +1,17 @@
 import React from 'react';
-import { Users, Target, Zap, Brain, Cog, Code, CheckCircle, ArrowRight, BatteryCharging, Leaf, BarChart } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
+import { Target, Zap, Brain, Cog, CheckCircle, ArrowRight, BatteryCharging, Leaf, BarChart } from 'lucide-react';
 
 
 // Update component definition to accept props
-interface WhatWeDoProps {
-  navigateTo: (page: string) => void;
-}
+//interface WhatWeDoProps {
+  //navigateTo: (page: string) => void;
+//}
 
-const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
+export default function WhatWeDo() {
+    const navigate = useNavigate();
+
+//const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
   const agileFrameworks = [
     {
       name: 'SCRUM',
@@ -226,7 +230,7 @@ const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Let's discuss how our expertise can accelerate your transformation journey.
           </p>
-          <button onClick={() => navigateTo('get-in-touch')}
+          <button onClick={() => navigate("/get-in-touch")}
             className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
             Schedule a Consultation
             </button>
@@ -234,6 +238,6 @@ const WhatWeDo: React.FC<WhatWeDoProps> = ({ navigateTo }) => {
       </section>
     </div>
   );
-};
+}
 
-export default WhatWeDo;
+//export default WhatWeDo;

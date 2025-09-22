@@ -1,11 +1,8 @@
-import React from 'react';
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import * as React from "react";
 
-interface FooterProps {
-  setCurrentPage: (page: string) => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
+  const Footer = () => {
   const quickLinks = [
     { name: 'Home', id: 'home' },
     { name: 'What We Do', id: 'what-we-do' },
@@ -18,13 +15,6 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
     { name: 'AI Solutions', id: 'aegis-ai-suite' },
     { name: 'DevOps Excellence', id: 'what-we-do' },
     { name: 'Our Insights', id: 'our-insights' }
-  ];
-
-  const company = [
-    { name: 'Our Partners', id: 'our-partners' },
-    { name: 'Join Us', id: 'join-us' },
-    { name: 'Get in Touch', id: 'get-in-touch' },
-    { name: 'AegisAI Suite', id: 'aegis-ai-suite' }
   ];
 
   return (
@@ -86,12 +76,12 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.id}>
-                  <button
-                    onClick={() => setCurrentPage(link.id)}
+                  <Link
+                    to={link.id}
                     className="text-gray-300 hover:text-white transition-colors"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -103,12 +93,12 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service.id}>
-                  <button
-                    onClick={() => setCurrentPage(service.id)}
+                  <Link
+                    to={service.id}
                     className="text-gray-300 hover:text-white transition-colors"
                   >
                     {service.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -144,24 +134,11 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             © 2020 GitHub Technologies. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-          <button
-            onClick={() => setCurrentPage('privacy-policy')} 
-            className="text-gray-400 hover:text-white text-sm transition-colors"
-          >
-            Privacy Policy
-          </button>
-          <button
-            onClick={() => setCurrentPage('terms-of-service')}
-            className="text-gray-400 hover:text-white text-sm transition-colors"
-          >
-            Terms of Service
-          </button>
-          <button
-            onClick={() => setCurrentPage('cookie-policy')}
-            className="text-gray-400 hover:text-white text-sm transition-colors"
-          >
-            Cookie Policy
-          </button>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <Link to="/privacy-policy" className="text-gray-400 hover:text-white text-sm">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-gray-400 hover:text-white text-sm">Terms of Service</Link>
+            <Link to="/cookie-policy" className="text-gray-400 hover:text-white text-sm">Cookie Policy</Link>
+          </div>
           </div>
         </div>
       </div>

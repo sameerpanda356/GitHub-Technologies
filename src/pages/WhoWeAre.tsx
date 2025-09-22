@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import { Users, Award, Target, Heart, Star, Cpu, Leaf, Globe} from 'lucide-react';
+import { Users, Award, Target, Heart, Star } from 'lucide-react';
 
 // Update component definition to accept props
 //interface WhoWeAreProps {
@@ -8,29 +8,33 @@ import { Users, Award, Target, Heart, Star, Cpu, Leaf, Globe} from 'lucide-react
 //}
 
 export default function WhoWeAre() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
 //const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
   const values = [
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
       title: 'Excellence',
-      description: 'We strive for excellence in every project, delivering solutions that exceed expectations and drive meaningful business outcomes.'
+      description: 'Delivering SaaS solutions with the highest standards of quality and performance,' +
+                   'trusted globally and aligned with international and EU best practices.'
     },
     {
       icon: <Users className="h-8 w-8 text-cyan-500" />,
       title: 'Collaboration',
-      description: 'We believe in the power of collaborative partnerships, working closely with our clients as an extension of their teams.'
+      description: 'Partnering with utilities, industries, and policy-driven initiatives — from Europe to the world' +
+                   ' — to accelerate the energy transition through teamwork and shared knowledge.'
     },
     {
       icon: <Heart className="h-8 w-8 text-orange-500" />,
       title: 'Integrity',
-      description: 'We operate with the highest level of integrity, transparency, and ethical standards in all our business relationships.'
+      description: 'Committed to transparency and compliance, enabling organizations to meet ESG goals and adhere ' +
+                   'to EU climate reporting requirements while driving trust across markets.'
     },
     {
       icon: <Award className="h-8 w-8 text-green-500" />,
       title: 'Innovation',
-      description: 'We embrace innovation and emerging technologies to deliver cutting-edge solutions that future-proof our clients\' businesses.'
+      description: 'Harnessing AI, cloud, and digital transformation to deliver forward-looking solutions' +
+                   'for global energy challenges while aligning with EU’s Net Zero ambitions.'
     }
   ];
 
@@ -156,41 +160,7 @@ export default function WhoWeAre() {
           </div>
         </div>
       </section>
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
-            <Cpu className="mx-auto w-10 h-10 text-emerald-600" />
-            <h3 className="mt-4 font-semibold">SaaS Innovation</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Scalable, secure, and cloud-native platforms built for the energy
-              domain.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
-            <Leaf className="mx-auto w-10 h-10 text-emerald-600" />
-            <h3 className="mt-4 font-semibold">Sustainability</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Driving Europe’s decarbonization goals with carbon tracking and
-              optimization tools.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
-            <Users className="mx-auto w-10 h-10 text-emerald-600" />
-            <h3 className="mt-4 font-semibold">Cross-Disciplinary Team</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Experts from energy, SaaS, and AI domains working together to
-              deliver impact.
-            </p>
-          </div>
-          <div className="p-6 rounded-2xl shadow bg-sky-50 hover:shadow-lg transition">
-            <Globe className="mx-auto w-10 h-10 text-emerald-600" />
-            <h3 className="mt-4 font-semibold">European Focus</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Solutions aligned with EU energy transition policies and Net Zero
-              ambitions.
-            </p>
-          </div>
-        </div>
-
+      
       {/* Leadership Team */}
       <section className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

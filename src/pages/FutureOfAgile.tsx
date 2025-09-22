@@ -1,21 +1,24 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
 
 /*const FutureOfAgile: React.FC = () => {
   const navigate = useNavigate();*/
-  interface FutureOfAgileProps {
+/*  interface FutureOfAgileProps {
     navigateTo?: (page: string) => void;
-  }
+  }*/
 
   //const FutureOfAgile: React.FC<{ navigateTo?: (page: string) => void }> = ({ navigateTo }) => {
-  const FutureOfAgile: React.FC<FutureOfAgileProps> = ({ navigateTo }) => {
+  export default function FutureOfAgile() {
+      const navigate = useNavigate();
+  // const FutureOfAgile: React.FC<FutureOfAgileProps> = ({ navigateTo }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Back button */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-24 pt-8">
           <button 
-            onClick={() => navigateTo?.('our-insights')}
+            onClick={() => navigate("/our-insights")}
             className="flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8"
           >
           <ArrowLeft className="h-5 w-5 mr-2" />
@@ -219,4 +222,4 @@ import { Calendar, User, ArrowLeft, Clock, TrendingUp } from 'lucide-react';
   );
 };
 
-export default FutureOfAgile;
+// export default FutureOfAgile;

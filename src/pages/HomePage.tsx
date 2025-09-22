@@ -1,52 +1,52 @@
 import React from 'react';
 import {CheckCircle, Target, Brain, Cog } from 'lucide-react';
 
-// Update component definition to accept props
-interface HomePageProps {
-  navigateTo: (page: string) => void;
-}
-
-const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
+export default function HomePage() {
   const features = [
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
-      title: 'Agile Excellence',
+      title: 'Energy SaaS Expertise',
       description:  ( <div className="space-y-2">
-      <p className="font-bold">Your Shortcut to Software That Wins.</p>
-      <p className="italic">Beyond sprints – we engineer outcomes. Faster time-to-market, higher quality, delighted users.</p>
-      <p className="font-bold">Partner with us for relentless value flow & real-time adaptability.</p>
-      <p className="italic">Where your vision meets predictable execution.</p>
+      <p className="font-bold">Built for the energy transition.</p>
+      <p className="italic">
+          Cloud-native SaaS solutions tailored to energy markets — enabling
+          utilities, industries, and innovators to deploy fast and scale impact.
+      </p>
     </div>
       )
     },
     {
       icon: <Brain className="h-8 w-8 text-cyan-500" />,
-      title: 'AI Innovation',
+      title: 'Sustainability Impact',
       description: ( <div className="space-y-2">
-      <p className="font-bold">AI Innovation × Agile Excellence = Unstoppable Delivery.</p>
-      <p className="italic">Ditch AI pilot purgatory. We integrate LLMs, automation, and predictive analytics into your Agile core.</p>
-      <p className="font-bold">De-risk innovation. Scale value. Own your evolution.</p>
+      <p className="font-bold">Driving measurable decarbonization.</p>
+      <p className="italic">
+          From CO₂ tracking to grid flexibility, our solutions directly support
+          Net Zero goals and ESG commitments.
+      </p>
     </div>
       )
     },
     {
       icon: <Cog className="h-8 w-8 text-orange-500" />,
-      title: 'DevOps Mastery',
+      title: 'Agile + AI Delivery',
       description: (
         <div className="space-y-2">
-      <p className="font-bold">Beyond Tools: DevOps Mastery That Unlocks Agile’s Promise.</p>
-      <p className="italic">We break siloes, automate compliance, and harden your CI/CD backbone.</p>
-      <p className="font-bold">Ship features fearlessly. Innovate without bottlenecks.</p>
+      <p className="font-bold">Where agility meets intelligence.</p>
+      <p className="italic">
+          Combining Agile excellence, AI innovation, and DevOps mastery to
+          deliver faster, smarter, and more reliable results.
+      </p>
     </div>
       )
     }
   ];
 
   const stats = [
-    { number: '10+', label: 'Projects Delivered' },
-    { number: '98%', label: 'Client Satisfaction' },
-    { number: '15+', label: 'Expert Consultants' },
-    { number: '5+', label: 'Years Experience' }
+    { number: '3+', label: 'MVP Pilots in Progress' },
+    { number: '200t+', label: 'CO₂ Tracked Annually' },
+    { number: '15+', label: 'Years Combined Team Expertise' },
+    { number: '1', label: 'Mission: Accelerating Energy Transition' }
   ];
 
   return (
@@ -68,13 +68,13 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
             <div>
               <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               <div className="space-y-2">
-              "Agile. Automated. Augmented."{' '}
+                "Agile. Automated. Augmented."{' '}
               </div>
-                <span className="text-cyan-300">Smarter Delivery, Faster Transformation.</span>
+                <span className="text-cyan-300">Smarter Delivery, Faster Energy Transformation.</span>
               </h1>
               <p className="text-xl lg:text-2xl mb-8 text-blue-100">
-                Expert consultancy in Agile delivery, AI innovation, and DevOps mastery. 
-                Accelerate your digital transformation journey.
+                Expert consultancy in Agile delivery, AI innovation, and DevOps mastery — with SaaS 
+                solutions designed for the global energy transition.
               </p>
             </div>
             <div className="relative">
@@ -83,15 +83,6 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
                 alt="Agile team collaboration"
                 className="rounded-2xl shadow-2xl"
               />
-              <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="h-8 w-8 text-green-500" />
-                  <div>
-                    <p className="text-gray-900 font-semibold">GitHub Technologies</p>
-                    <p className="text-gray-600">15+ Successful Projects</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -102,7 +93,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-orange-900 mb-4">
-              Why Choose Github Technologies?
+              Our Edge in Energy SaaS
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             <p className="font-bold">We Engineer End-to-End Digital Dominance.</p>
@@ -150,15 +141,16 @@ const HomePage: React.FC<HomePageProps> = ({ navigateTo }) => {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
              Start Your Journey Today for Free Agile + AI Strategy Session with our expert Agile, AI, and DevOps solutions suite.
           </p>
-          <button 
-            onClick={() => navigateTo('get-in-touch')}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <div className="mt-10 text-center">
+          <a
+            href="/get-in-touch"
+            className="px-6 py-3 rounded-2xl bg-orange-500 text-white font-semibold shadow hover:bg-emerald-700"
+          >
             Get Started
-          </button>
+          </a>
+        </div>
         </div>
       </section>
     </div>
   );
 };
-
-export default HomePage;
