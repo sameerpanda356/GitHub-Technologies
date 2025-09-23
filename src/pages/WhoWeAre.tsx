@@ -1,16 +1,8 @@
-import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Users, Award, Target, Heart, Star } from 'lucide-react';
 
-// Update component definition to accept props
-//interface WhoWeAreProps {
-//  navigateTo: (page: string) => void;
-//}
-
 export default function WhoWeAre() {
-const navigate = useNavigate();
 
-//const WhoWeAre: React.FC<WhoWeAreProps> = ({ navigateTo }) => {
   const values = [
     {
       icon: <Target className="h-8 w-8 text-blue-600" />,
@@ -76,15 +68,6 @@ const navigate = useNavigate();
     'PMI Agile Certified Practitioner (PMI-ACP)'
   ];
 
-  const achievements = [
-    { number: '10+', label: 'Projects Delivered' },
-    { number: '98%', label: 'Client Satisfaction' },
-    { number: '15+', label: 'Expert Consultants' },
-    { number: '5+', label: 'Years Experience' },
-    { number: '10+', label: 'Countries Served' },
-    { number: '$10M+', label: 'Client Value Created' }
-  ];
-
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -94,11 +77,16 @@ const navigate = useNavigate();
             <div>
               <h1 className="text-5xl font-bold mb-6">Who We Are</h1>
               <p className="text-xl text-blue-100 mb-8">
-                  We are a SaaS-driven technology company focused on solving some of the
-                  most pressing challenges in the energy sector. By combining deep
-                  expertise in cloud-native software, AI, and energy optimization, we
-                  empower utilities, grid operators, and enterprises to transition
-                  toward a sustainable future.
+                  GitHub Technologies was founded on a bold belief: that SaaS and AI can 
+                  accelerate digital transformation and build resilient, sustainable industries. 
+                  Starting with the energy transition, we’re on a mission to turn complex 
+                  challenges into scalable, real-world solutions.  
+              </p>
+              <p className="text-xl text-blue-100 mt-6">
+                  What defines us is not just the technology we build, but the culture we foster — 
+                  one rooted in agility, innovation, and impact. Our teams thrive on curiosity, 
+                  collaboration, and a relentless drive to shape the future of SaaS across 
+                  industries. 
               </p>
             </div>
             <div>
@@ -194,24 +182,35 @@ const navigate = useNavigate();
       </section>
 
       {/* Achievements Section */}
-      <section className="py-12 bg-blue-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Our Achievements</h2>
-            <p className="text-xl text-blue-100">
-              Numbers that reflect our commitment to excellence
-            </p>
-          </div>
+      <section className="py-16 bg-gradient-to-r from-emerald-50 to-sky-50">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Achievements</h2>
+          <p className="text-lg text-gray-600 mb-12">
+            We’re early in our journey, but already making waves with pilots, 
+            partnerships, and recognition from the innovation ecosystem.
+          </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {achievements.map((achievement, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-cyan-300 mb-2">
-                  {achievement.number}
-                </div>
-                <div className="text-sm lg:text-base text-blue-100">{achievement.label}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+              <h3 className="font-semibold text-2xl mb-2">3+</h3>
+              <p className="text-gray-600 text-sm">
+                SaaS pilots launched in energy markets (congestion relief, CO₂ tracking, battery optimization).
+              </p>
+            </div>
+
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+              <h3 className="font-semibold text-2xl mb-2">2</h3>
+              <p className="text-gray-600 text-sm">
+                Recognitions from leading accelerator and startup programs in Europe.
+              </p>
+            </div>
+
+            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+              <h3 className="font-semibold text-2xl mb-2">5+</h3>
+              <p className="text-gray-600 text-sm">
+                Strategic partnerships established with technology providers and domain experts.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -220,7 +219,7 @@ const navigate = useNavigate();
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Certifications</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Credibility</h2>
             <p className="text-xl text-gray-600">
               Industry-recognized expertise across all major frameworks and technologies
             </p>
@@ -243,16 +242,16 @@ const navigate = useNavigate();
       {/* CTA Section */}
       <section className="py-12 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6"><p className='italic'>Ready to Work Together?</p></h2>
+          <h2 className="text-4xl font-bold mb-6"><p className='italic'>Let’s Shape the Future of SaaS Together</p></h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join the hundreds of organizations that have transformed their business with GitHub Technologies.
-            Let's discuss how we can help you achieve your goals.
+              Whether you're an enterprise, investor, or innovation partner — let’s collaborate 
+              to scale impact across energy and beyond.
           </p>
-          <button 
-            onClick={() => navigate("/get-in-touch")}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-            Start the Conversation
-          </button>
+          <a
+            href="/get-in-touch"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+            Connect With Us
+          </a>
         </div>
       </section>
     </div>
