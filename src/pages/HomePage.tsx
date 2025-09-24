@@ -1,5 +1,6 @@
 import { Target, Brain, Cog } from 'lucide-react';
 
+
 export default function HomePage() {
   const features = [
     {
@@ -87,6 +88,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Problem / Opportunity Section */}
+      <section className="py-16 bg-blue-100">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Why Now?</h2>
+          <p className="text-lg text-gray-600 mb-12">
+            Industries are under pressure to decarbonize, digitize, and deliver 
+            faster than ever. Traditional tools can’t keep up — that’s where 
+            our SaaS-first approach comes in.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-gray-50 rounded-xl shadow">
+              <h3 className="font-semibold text-xl mb-2">Energy Transition</h3>
+              <p className="text-sm text-gray-600">
+                Grids and industries need scalable digital solutions to 
+                integrate renewables and manage flexibility.
+              </p>
+            </div>
+            <div className="p-6 bg-gray-50 rounded-xl shadow">
+              <h3 className="font-semibold text-xl mb-2">Rising ESG Demands</h3>
+              <p className="text-sm text-gray-600">
+                Organizations face new reporting, compliance, and sustainability 
+                expectations — and need real-time insights.
+              </p>
+            </div>
+            <div className="p-6 bg-gray-50 rounded-xl shadow">
+              <h3 className="font-semibold text-xl mb-2">AI & SaaS Shift</h3>
+              <p className="text-sm text-gray-600">
+                Companies demand SaaS platforms that are cloud-native, 
+                AI-enabled, and built to adapt across industries.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-12 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,6 +151,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      
+      {/* Recognition / Early Traction */}
+      <section className="py-16 bg-blue-50">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Early Traction</h2>
+          <p className="text-lg text-gray-600 mb-12">
+            We’re early, but our journey is gaining momentum with pilots, partners, 
+            and recognition from the innovation ecosystem.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-white rounded-xl shadow">
+              <h3 className="font-semibold text-xl mb-2">3+ MVP Pilots</h3>
+              <p className="text-sm text-gray-600">Launched in energy markets for congestion relief, battery optimization, and CO₂ tracking.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow">
+              <h3 className="font-semibold text-xl mb-2">2 Accelerators</h3>
+              <p className="text-sm text-gray-600">Recognized by leading European startup programs for SaaS innovation.</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl shadow">
+              <h3 className="font-semibold text-xl mb-2">Strategic Partnerships</h3>
+              <p className="text-sm text-gray-600">Collaborating with technology providers and domain experts to accelerate impact.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-12 bg-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -135,10 +197,12 @@ export default function HomePage() {
       <section className="py-12 bg-gradient-to-r from-cyan-500 to-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            <p className="italic"> Ready to deploy AI that delivers? </p>
+            <p className="italic"> Let’s Build the Future of SaaS Together </p>
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-             Start Your Journey Today for Free Agile + AI Strategy Session with our expert Agile, AI, and DevOps solutions suite.
+              We’re looking for partners, accelerators, and innovators who share our 
+              mission. Join us in scaling SaaS solutions for the energy transition 
+              — and beyond.
           </p>
           <div className="mt-10 text-center">
           <a
