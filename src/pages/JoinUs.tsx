@@ -10,7 +10,7 @@ export default function JoinUs() {
             Join Us in Shaping the Future of SaaS & Energy Innovation
           </h1>
           <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-            We’re a fast-moving startup on a mission to deliver SaaS platforms0
+            We’re a fast-moving startup on a mission to deliver SaaS platforms
             that drive digital transformation and accelerate the global energy transition.
           </p>
         </div>
@@ -30,34 +30,32 @@ export default function JoinUs() {
       </section>
 
       {/* Benefits */}
-      <section className="py-14 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-            What We Offer
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">What We Offer</h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            <div className="w-64 p-6 bg-white rounded-xl shadow hover:shadow-md">
               <h3 className="font-semibold text-xl mb-2">Ownership</h3>
               <p className="text-sm text-gray-600">
-                Get meaningful equity and shape the company’s growth from day one.
+                Meaningful equity and a chance to shape the company’s growth from day one.
               </p>
             </div>
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+            <div className="w-64 p-6 bg-white rounded-xl shadow hover:shadow-md">
               <h3 className="font-semibold text-xl mb-2">Flexibility</h3>
               <p className="text-sm text-gray-600">
-                Remote-first culture with freedom to design how and where you work best.
+                Remote-first culture with the freedom to design how and where you work best.
               </p>
             </div>
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+            <div className="w-64 p-6 bg-white rounded-xl shadow hover:shadow-md">
               <h3 className="font-semibold text-xl mb-2">Impact</h3>
               <p className="text-sm text-gray-600">
                 Work on projects that matter — from CO₂ savings to smarter SaaS delivery.
               </p>
             </div>
-            <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
+            <div className="w-64 p-6 bg-white rounded-xl shadow hover:shadow-md">
               <h3 className="font-semibold text-xl mb-2">Growth</h3>
               <p className="text-sm text-gray-600">
-                Learn fast, wear multiple hats, and grow with the company as we scale globally.
+                Learn fast, wear multiple hats, and grow as we scale globally.
               </p>
             </div>
           </div>
@@ -101,12 +99,11 @@ export default function JoinUs() {
       <section className="py-14 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Future Opportunities
+            Roles We’re Excited About
           </h2>
           <p className="text-lg text-gray-600 mb-12">
-            We may not always have open roles, but we’re always open to meeting 
-            passionate people who want to build with us. These are the kinds of 
-            roles we often look for:
+            These are the kinds of roles we often look for as we grow. 
+            (Note: Not all are actively open today — but if you’re passionate, reach out!)
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 bg-white rounded-xl shadow hover:shadow-md">
@@ -138,7 +135,7 @@ export default function JoinUs() {
             How We Hire
           </h2>
           <p className="text-lg text-gray-600 mb-10">
-            We keep it simple and transparent — no endless rounds, no corporate fluff.
+            We keep it simple and transparent — most decisions are made within 1–2 weeks.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="p-6 bg-gray-50 rounded-xl shadow hover:shadow-md">
