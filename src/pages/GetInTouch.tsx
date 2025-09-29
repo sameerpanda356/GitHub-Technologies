@@ -10,6 +10,7 @@ export default function GetInTouch() {
     subject: "General Inquiry",
     message: "",
     honeypot: "",
+    attachment: null as File | null,
   });
 
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -21,11 +22,29 @@ export default function GetInTouch() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.honeypot) return; // spam protection
 
     try {
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("phone", formData.phone);
+      data.append("company", formData.company);
+      data.append("website", formData.website);
+      data.append("subject", formData.subject);
+      data.append("message", formData.message);
+      if (formData.attachment) {
+        data.append("attachment", formData.attachment);
+      }
+
+      // Example: POST to your backend or email service
+      await fetch("/api/contact", {
+        method: "POST",
+        body: data,
+      });
+      
       console.log("Form submitted:", formData);
       setStatus("success");
       setFormData({
@@ -37,6 +56,7 @@ export default function GetInTouch() {
         subject: "General Inquiry",
         message: "",
         honeypot: "",
+        attachment: null,
       });
     } catch (err) {
       setStatus("error");
@@ -170,6 +190,16 @@ export default function GetInTouch() {
             value={formData.honeypot}
             onChange={handleChange}
             className="hidden"
+          />
+
+          <input
+            type="file"
+            name="attachment"
+            accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg" 
+            onChange={(e) =>
+              setFormData({ ...formData, attachment: e.target.files ? e.target.files[0] : null })
+            }
+            className="border rounded px-4 py-2 w-full"
           />
 
           <button
