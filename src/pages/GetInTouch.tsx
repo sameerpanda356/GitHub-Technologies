@@ -1,221 +1,345 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, Clock, Globe } from 'lucide-react';
 
-export default function GetInTouch() {
+const GetInTouch: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    website: "",
-    subject: "General Inquiry",
-    message: "",
-    honeypot: "",
+    name: '',
+    email: '',
+    company: '',
+    subject: '',
+    message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
 
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.honeypot) return; // spam protection
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
-    try{
-      console.log("Form submitted:", formData);
-      setStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        website: "",
-        subject: "General Inquiry",
-        message: "",
-        honeypot: "",
+    try {
+      // Use absolute URL in production
+      /* const url = process.env.NODE_ENV === 'development' 
+      ? '/.netlify/functions/send-email'  
+      : `${window.location.origin}/.netlify/functions/send-email`; */
+
+      const url = import.meta.env.VITE_API_BASE_URL || "/.netlify/functions/send-email";
+      
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    } catch (err) {
-      setStatus("error");
+
+      // Handle response text safely
+      const responseText = await response.text();
+      let result: any;
+
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error(`Invalid JSON: ${responseText}`);
+      }
+
+      if (response.ok) {
+        setSubmitStatus({ 
+          success: true, 
+          message: result.message || 'Message sent successfully!' 
+        });
+        // Reset form
+        setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus({ 
+          success: false, 
+          message: result.error || `Error: ${response.status}` 
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({ 
+        success: false, 
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    } finally {
+      setIsSubmitting(false);
     }
+    // Handle form submission here
+    // console.log('Form submitted:', formData);
   };
 
   return (
-    <div className="bg-gray-50">
-      {/* Hero */}
-      <section className="bg-gradient-to-r from-blue-900 to-cyan-700 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold mb-4">Get in Touch</h1>
-          <p className="text-xl text-blue-100">
-            Looking to accelerate your digital transformation with SaaS and AI-driven
-            solutions? Let’s explore how we can partner.
-          </p>
-        </div>
-      </section>
-
-      {/* Contact Info + Form */}
-      <section className="py-16 max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12">
-        {/* Contact Info */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Our Global Offices</h2>
-          <div className="grid gap-6">
-            <div className="p-4 bg-white rounded-lg shadow">
-              <h3 className="font-semibold text-gray-900">USA</h3>
-              <p className="text-gray-600">30 N Gould St Ste N, Sheridan, WY 82801</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg shadow">
-              <h3 className="font-semibold text-gray-900">India</h3>
-              <p className="text-gray-600">H1A/20 Sector-63, Noida, UP 201301</p>
-            </div>
-            <div className="p-4 bg-white rounded-lg shadow">
-              <h3 className="font-semibold text-gray-900">Netherlands</h3>
-              <p className="text-gray-600">Prins Alexanderplein 6-14, Rotterdam 3067 GC</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Contact Form */}
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow space-y-6">
-          {/* Status Banner */}
-          {status === "success" && (
-            <div className="p-4 bg-green-100 text-green-700 font-medium rounded-lg border border-green-300">
-              ✅ Thank you! We’ll be in touch shortly.
-            </div>
-          )}
-          {status === "error" && (
-            <div className="p-4 bg-red-100 text-red-700 font-medium rounded-lg border border-red-300">
-              ❌ Oops! Something went wrong. Please try again.
-            </div>
-          )}
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              placeholder="Your Name"
-              className="border rounded px-4 py-2 w-full"
-            />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              placeholder="Your Email"
-              className="border rounded px-4 py-2 w-full"
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Phone (optional)"
-              className="border rounded px-4 py-2 w-full"
-            />
-            <input
-              type="text"
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              placeholder="Company"
-              className="border rounded px-4 py-2 w-full"
-            />
-          </div>
-
-          <input
-            type="text"
-            name="website"
-            value={formData.website}
-            onChange={handleChange}
-            placeholder="Company Website (optional)"
-            className="border rounded px-4 py-2 w-full"
-          />
-
-          <select
-            name="subject"
-            value={formData.subject}
-            onChange={handleChange}
-            className="border rounded px-4 py-2 w-full"
-          >
-            <option>General Inquiry</option>
-            <option>Partnership</option>
-            <option>Investment</option>
-            <option>Join Our Team</option>
-            <option>Request Demo</option>
-          </select>
-
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-            placeholder="Your Message"
-            rows={5}
-            className="border rounded px-4 py-2 w-full"
-          />
-
-          {/* Honeypot */}
-          <input
-            type="text"
-            name="honeypot"
-            value={formData.honeypot}
-            onChange={handleChange}
-            className="hidden"
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded"
-          >
-            Send Message
-          </button>
-        </form>
-      </section>
-
-      {/* Extra Info */}
-      <section className="py-16 bg-gray-100">
-        <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-3 gap-8 text-center">
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Agile Delivery</h3>
-            <p className="text-gray-600">
-              We deliver MVPs in weeks, not months — enabling rapid market validation.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Energy Expertise</h3>
-            <p className="text-gray-600">
-              Deep domain knowledge in SaaS for energy transition, Net Zero & flexibility
-              markets.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Scalable Platforms</h3>
-            <p className="text-gray-600">
-              Our SaaS solutions scale from pilot projects to enterprise-ready deployments.
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <section className="bg-gradient-to-br from-blue-900 to-cyan-700 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold mb-6">Get in Touch</h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Ready to transform your business with cutting-edge technology solutions? 
+              We'd love to hear from you. Let's start a conversation about your goals.
             </p>
           </div>
         </div>
-
-        {/* Direct Email CTA */}
-        <div className="text-center mt-12">
-          <p className="text-gray-700">Prefer email? Reach us directly at</p>
-          <a
-            href="mailto:contact@githubtechnologies.com"
-            className="text-blue-600 font-semibold underline"
-          >
-            contact@githubtechnologies.com
-          </a>
-        </div>
       </section>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div style={{ display: 'none' }}>
+          <label htmlFor="honeypot">Don't fill this out</label>
+          <input 
+            type="text" 
+            id="honeypot" 
+            name="honeypot" 
+            onChange={handleInputChange} 
+          />
+        </div>
+        {/* Header Section */}
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Information */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Contact Information</h2>
+            
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <Mail className="w-6 h-6 text-blue-600 mt-1" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Email</h3>
+                  <p className="text-gray-600">contact@githubtechnologies.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <Phone className="w-6 h-6 text-blue-600 mt-1" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
+                  <p className="text-gray-600">+1 (980) 355-5778</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <MapPin className="w-6 h-6 text-blue-600 mt-1" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Address</h3>
+                  <p className="text-gray-600">
+                  <h2 className="text-lg font-semibold text-gray-900">USA</h2>
+                    30 N Gould St Ste N, <br />
+                    Sheridan, WY 82801<br />
+                    United States
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                </div>
+                <div>
+                  <br></br>
+                  <h3 className="text-lg font-semibold text-gray-900"></h3>
+                  <p className="text-gray-600">
+                  <h2 className="text-lg font-semibold text-gray-900">India</h2>
+                    H1A/20 SECTOR-63 <br />
+                    Noida, UP 201301<br />
+                    India
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                </div>
+                <div>
+                  <br></br>
+                  <h3 className="text-lg font-semibold text-gray-900"></h3>
+                  <p className="text-gray-600">
+                  <h2 className="text-lg font-semibold text-gray-900">Netherlands</h2>
+                    Prins Alexanderplein 6-14
+                    3067 GC Rotterdam 3160, <br />
+                    Netherlands
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <Clock className="w-6 h-6 text-blue-600 mt-1" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Business Hours</h3>
+                  <p className="text-gray-600">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                  <p className="text-gray-600">Saturday: Closed</p>
+                  <p className="text-gray-600">Sunday: Closed</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <Globe className="w-6 h-6 text-blue-600 mt-1" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Global Presence</h3>
+                  <p className="text-gray-600">Serving clients worldwide with 24/7 support</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Send us a Message</h2>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    placeholder="Your full name"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    placeholder="your.email@company.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  placeholder="Your company name"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                  Subject *
+                </label>
+                <select
+                  id="subject"
+                  name="subject"
+                  required
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                >
+                  <option value="">Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="services">Services & Solutions</option>
+                  <option value="partnership">Partnership Opportunities</option>
+                  <option value="support">Technical Support</option>
+                  <option value="careers">Career Opportunities</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                  Message *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={6}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-vertical"
+                  placeholder="Tell us about your project, requirements, or how we can help you..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full ${
+                  isSubmitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
+                } text-white py-3 px-6 rounded-lg font-semibold focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2`}
+              >
+                <Send className="w-5 h-5" />
+                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+              </button>
+              {submitStatus && (
+                <div className={`mt-4 p-3 rounded-lg text-center ${
+                  submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                }`}>
+                  {submitStatus.message}
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+
+        {/* Additional Information */}
+        <div className="mt-16 bg-white rounded-2xl shadow-xl p-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Why Choose GitHub Technologies?</h2>
+            <p className="text-gray-600 max-w-4xl mx-auto mb-8">
+              We're committed to delivering exceptional results and building long-term partnerships with our clients.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Quick Response</h3>
+              <p className="text-gray-600">We respond to all inquiries within 24 hours</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Globe className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Global Reach</h3>
+              <p className="text-gray-600">Serving clients across multiple time zones</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Send className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Expert Consultation</h3>
+              <p className="text-gray-600">Free initial consultation for all projects</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default GetInTouch;
