@@ -1,85 +1,106 @@
-const mailgun = require("mailgun-js");
+import formData from "form-data";
+import Mailgun from "mailgun.js";
+import busboy from "busboy";
 
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
   };
 
-  // Handle OPTIONS request (CORS preflight)
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 200,
-      headers,
-      body: ''
-    };
+  // Handle CORS preflight
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 200, headers, body: "" };
   }
 
-  // Only allow POST requests
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: "Method Not Allowed"
-    };
+    return { statusCode: 405, headers, body: "Method Not Allowed" };
   }
 
   try {
-   /* if (data.honeypot) {
-      return {
-        statusCode: 200,
-        header,
-        body: JSON.stringify({ message: "Email sent successfully" })
-      };
-    } */
-    
-    const data = JSON.parse(event.body);
-    
-    // Validate required fields
-    if (!data.name || !data.email || !data.message) {
+    const bb = busboy({
+      headers: { "content-type": event.headers["content-type"] },
+    });
+
+    const fields = {};
+    let fileData = null;
+
+    await new Promise((resolve, reject) => {
+      const chunks = [];
+
+      bb.on("field", (name, val) => {
+        fields[name] = val;
+      });
+
+      bb.on("file", (name, stream, info) => {
+        stream.on("data", (chunk) => chunks.push(chunk));
+        stream.on("end", () => {
+          fileData = {
+            filename: info.filename,
+            data: Buffer.concat(chunks),
+            contentType: info.mimeType,
+          };
+        });
+      });
+
+      bb.on("close", resolve);
+      bb.on("error", reject);
+
+      // Netlify sends body as base64
+      bb.end(Buffer.from(event.body, "base64"));
+    });
+
+    if (!fields.name || !fields.email || !fields.message) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "Missing required fields" })
+        headers,
+        body: JSON.stringify({ error: "Missing required fields" }),
       };
     }
 
-    // Initialize Mailgun AFTER validation
-    const mg = mailgun({
-      apiKey: process.env.MAILGUN_API_KEY,
-      domain: process.env.MAILGUN_DOMAIN
+    const mailgun = new Mailgun(formData);
+    const mg = mailgun.client({
+      username: "api",
+      key: process.env.MAILGUN_API_KEY, // must be set in Netlify env vars
     });
-    
-    // Prepare email
-    const emailData = {
-      from: `${data.name} <${data.email}>`,
-      to: "contact@githubtechnologies.com", // Your email address
-      subject: data.subject || "New message from contact form",
+
+    const messageData = {
+      from: `${fields.name} <${fields.email}>`,
+      to: "contact@githubtechnologies.com", // change to your receiving email
+      subject: fields.subject || "New message from contact form",
       text: `
-        Name: ${data.name}
-        Email: ${data.email}
-        Company: ${data.company || "N/A"}
-        Subject: ${data.subject || "No subject"}
-        
+        Name: ${fields.name}
+        Email: ${fields.email}
+        Company: ${fields.company || "N/A"}
+        Subject: ${fields.subject || "No subject"}
+
         Message:
-        ${data.message}
-      `
+        ${fields.message}
+      `,
     };
 
-    // Send email
-    await mg.messages().send(emailData);
-    
+    if (fileData) {
+      messageData.attachment = new mg.Attachment({
+        data: fileData.data,
+        filename: fileData.filename,
+        contentType: fileData.contentType,
+      });
+    }
+
+    await mg.messages.create(process.env.MAILGUN_DOMAIN, messageData);
+
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ message: "Email sent successfully" })
+      body: JSON.stringify({ message: "Email sent successfully!" }),
     };
-    
   } catch (error) {
-    console.error("Full error:", error);
+    console.error("Send email error:", error);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };

@@ -7,7 +7,8 @@ const GetInTouch: React.FC = () => {
     email: '',
     company: '',
     subject: '',
-    message: ''
+    message: '',
+    attachment: null as File | null, // NEW
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
@@ -32,8 +33,19 @@ const GetInTouch: React.FC = () => {
       : `${window.location.origin}/.netlify/functions/send-email`; */
 
       const url = import.meta.env.VITE_API_BASE_URL || "/.netlify/functions/send-email";
+
+      // Build FormData instead of JSON
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("company", formData.company);
+      data.append("subject", formData.subject);
+      data.append("message", formData.message);
+      if (formData.attachment) {
+        data.append("attachment", formData.attachment);
+      }
       
-      const response = await fetch(url, {
+      /*const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,11 +57,23 @@ const GetInTouch: React.FC = () => {
       const responseText = await response.text();
       let result: any;
 
+      const response = await fetch(url, {
+        method: "POST",
+        body: data, // no headers → browser auto-sets multipart/form-data
+      }); 
+
       try {
         result = JSON.parse(responseText);
       } catch (parseError) {
         throw new Error(`Invalid JSON: ${responseText}`);
-      }
+      } */
+
+      const response = await fetch(url, {
+        method: "POST",
+        body: data, // no headers → browser auto-sets multipart/form-data
+      });
+  
+      const result = await response.json();
 
       if (response.ok) {
         setSubmitStatus({ 
@@ -57,7 +81,7 @@ const GetInTouch: React.FC = () => {
           message: result.message || 'Message sent successfully!' 
         });
         // Reset form
-        setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', company: '', subject: '', message: '', attachment: null, });
       } else {
         setSubmitStatus({ 
           success: false, 
@@ -189,6 +213,8 @@ const GetInTouch: React.FC = () => {
             </div>
           </div>
 
+          
+
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-xl p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-8">Send us a Message</h2>
@@ -280,6 +306,27 @@ const GetInTouch: React.FC = () => {
                   placeholder="Tell us about your project, requirements, or how we can help you..."
                 />
               </div>
+              <div>
+                <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 mb-2">
+                  Attachment (optional)
+                </label>
+                <input
+                  type="file"
+                  id="attachment"
+                  name="attachment"
+                  accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg"
+                  onChange={(e) =>
+                    setFormData({ ...formData, attachment: e.target.files ? e.target.files[0] : null })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                />
+              </div>
+
+              {formData.attachment && (
+                <p className="text-sm text-gray-500 mt-1">
+                  Attached: {formData.attachment.name}
+                </p>
+              )}
 
               <button
                 type="submit"
