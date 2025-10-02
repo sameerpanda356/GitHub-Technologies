@@ -1,7 +1,6 @@
 import Mailgun from "mailgun.js";
 import formData from "form-data";
-import fs from "fs";
-import formidable from "formidable";
+import Busboy from "busboy";
 
 const mailgun = new Mailgun(formData);
 const mg = mailgun.client({
@@ -14,43 +13,57 @@ export const handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  const form = formidable({ multiples: false });
+  return new Promise((resolve, reject) => {
+    try {
+      const busboy = Busboy({ headers: event.headers });
+      const fields = {};
+      let attachment = null;
 
-  return new Promise((resolve) => {
-    form.parse(event, async (err, fields, files) => {
-      if (err) {
-        console.error("Form parse error:", err);
-        resolve({ statusCode: 400, body: JSON.stringify({ error: "Invalid form data" }) });
-        return;
-      }
-
-      try {
-        const { name, email, company, subject, message } = fields;
-        const file = files?.attachment;
-
-        const msgData = {
-          from: `${name} <${email}>`,
-          to: "contact@githubtechnologies.com", // Change to your email
-          subject: `Contact Form: ${subject || "New Submission"}`,
-          text: `${message}\n\nFrom: ${name}\nCompany: ${company}\nEmail: ${email}`,
-          attachment: file
-            ? fs.createReadStream(file.filepath) // ✅ fixed way to send attachment
-            : undefined,
-        };
-
-        await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
-
-        resolve({
-          statusCode: 200,
-          body: JSON.stringify({ message: "Email sent successfully!" }),
+      busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+        const chunks = [];
+        file.on("data", (data) => chunks.push(data));
+        file.on("end", () => {
+          attachment = {
+            filename,
+            data: Buffer.concat(chunks),
+            contentType: mimetype,
+          };
         });
-      } catch (error) {
-        console.error("Mailgun error:", error);
-        resolve({
-          statusCode: 500,
-          body: JSON.stringify({ error: error.message }),
-        });
-      }
-    });
+      });
+
+      busboy.on("field", (fieldname, val) => {
+        fields[fieldname] = val;
+      });
+
+      busboy.on("finish", async () => {
+        try {
+          const msgData = {
+            from: `${fields.name} <${fields.email}>`,
+            to: "contact@githubtechnologies.com",
+            subject: `Contact Form: ${fields.subject || "New Submission"}`,
+            text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
+            attachment: attachment ? [attachment] : undefined,
+          };
+
+          await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
+
+          resolve({
+            statusCode: 200,
+            body: JSON.stringify({ message: "Email sent successfully!" }),
+          });
+        } catch (error) {
+          console.error("Mailgun error:", error);
+          resolve({
+            statusCode: 500,
+            body: JSON.stringify({ error: error.message }),
+          });
+        }
+      });
+
+      busboy.end(Buffer.from(event.body, "base64"));
+    } catch (err) {
+      console.error("Parsing error:", err);
+      resolve({ statusCode: 500, body: "Error parsing form data" });
+    }
   });
 };
