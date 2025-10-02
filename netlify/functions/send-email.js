@@ -42,7 +42,15 @@ export const handler = async (event) => {
             to: "contact@githubtechnologies.com",
             subject: `Contact Form: ${fields.subject || "New Submission"}`,
             text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
-            attachment: attachment ? [attachment] : undefined,
+            attachment: attachment
+            ? [
+                {
+                  filename: attachment.filename,
+                  data: attachment.data,       // ✅ buffer, not path
+                  contentType: attachment.contentType,
+                },
+              ]
+            : undefined,
           };
 
           await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
