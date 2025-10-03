@@ -43,10 +43,13 @@ export const handler = async (event) => {
             subject: `Contact Form: ${fields.subject || "New Submission"}`,
             text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
             attachment: attachment
-              ? new mg.formData.File([attachment.data], attachment.filename, {
-                type: attachment.contentType,
-                })
-              : undefined,
+            ? [
+                {
+                  filename: attachment.filename,
+                  data: attachment.data, // ✅ buffer directly
+                },
+              ]
+            : undefined,
           };
 
           await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
