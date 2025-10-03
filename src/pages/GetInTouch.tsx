@@ -30,7 +30,8 @@ const GetInTouch: React.FC = () => {
       // Use absolute URL in production
       /* const url = process.env.NODE_ENV === 'development' 
       ? '/.netlify/functions/send-email'  
-      : `${window.location.origin}/.netlify/functions/send-email`; */
+      : `${window.location.origin}/.netlify/functions/send-email`; 
+      */
 
       const url = import.meta.env.VITE_API_BASE_URL || "/.netlify/functions/send-email";
 
