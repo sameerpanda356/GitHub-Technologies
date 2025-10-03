@@ -13,7 +13,7 @@ export const handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     try {
       const busboy = Busboy({ headers: event.headers });
       const fields = {};
@@ -42,15 +42,15 @@ export const handler = async (event) => {
             to: "contact@githubtechnologies.com",
             subject: `Contact Form: ${fields.subject || "New Submission"}`,
             text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
-            attachments: files.attachment
-            ? [
-                {
-                  filename: files.attachment.originalFilename,
-                  path: files.attachment.filepath,   // ✅ use filepath, not the object
-                  contentType: files.attachment.mimetype,
-                },
-              ]
-            : [],
+            attachment: attachment
+              ? [
+                  {
+                    filename: attachment.filename,
+                    data: attachment.data,
+                    contentType: attachment.contentType,
+                  },
+                ]
+              : [],
           };
 
           await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
