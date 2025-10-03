@@ -99,6 +99,7 @@ const GetInTouch: React.FC = () => {
     }
     // Handle form submission here
     // console.log('Form submitted:', formData);
+    console.log("API base URL:", import.meta.env.VITE_API_BASE_URL);
   };
 
   return (
