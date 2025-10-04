@@ -1,77 +1,85 @@
-import Mailgun from "mailgun.js";
-import formData from "form-data";
-import Busboy from "busboy";
+const mailgun = require("mailgun-js");
 
-const mailgun = new Mailgun(formData);
-const mg = mailgun.client({
-  username: "api",
-  key: process.env.MAILGUN_API_KEY,
-});
+exports.handler = async (event) => {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+  };
 
-export const handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
+  // Handle OPTIONS request (CORS preflight)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+      body: ''
+    };
   }
 
-  return new Promise((resolve) => {
-    try {
-      const busboy = Busboy({ headers: event.headers });
-      const fields = {};
-      let attachment = null;
+  // Only allow POST requests
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: "Method Not Allowed"
+    };
+  }
 
-      busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-        const chunks = [];
-        file.on("data", (data) => chunks.push(data));
-        file.on("end", () => {
-          attachment = {
-            filename,
-            data: Buffer.concat(chunks),
-            contentType: mimetype,
-          };
-        });
-      });
-
-      busboy.on("field", (fieldname, val) => {
-        fields[fieldname] = val;
-      });
-
-      busboy.on("finish", async () => {
-        try {
-          const msgData = {
-            from: `${fields.name} <${fields.email}>`,
-            to: "contact@githubtechnologies.com",
-            subject: `Contact Form: ${fields.subject || "New Submission"}`,
-            text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
-            attachment: attachment
-              ? [
-                  {
-                    filename: attachment.filename,
-                    data: attachment.data,
-                    contentType: attachment.contentType,
-                  },
-                ]
-              : [],
-          };
-
-          await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
-
-          resolve({
-            statusCode: 200,
-            body: JSON.stringify({ message: "Email sent successfully!" }),
-          });
-        } catch (error) {
-          console.error("Mailgun error:", error);
-          resolve({
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
-          });
-        }
-      });
-
-      busboy.end(Buffer.from(event.body, "base64"));
-    } catch (err) {
-      console.error("Parsing error:", err);
-      resolve({ statusCode: 500, body: "Error parsing form data" });
+  try {
+   /* if (data.honeypot) {
+      return {
+        statusCode: 200,
+        header,
+        body: JSON.stringify({ message: "Email sent successfully" })
+      };
+    } */
+    
+    const data = JSON.parse(event.body);
+    
+    // Validate required fields
+    if (!data.name || !data.email || !data.message) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "Missing required fields" })
+      };
     }
-  });
+
+    // Initialize Mailgun AFTER validation
+    const mg = mailgun({
+      apiKey: process.env.MAILGUN_API_KEY,
+      domain: process.env.MAILGUN_DOMAIN
+    });
+    
+    // Prepare email
+    const emailData = {
+      from: `${data.name} <${data.email}>`,
+      to: "contact@githubtechnologies.com", // Your email address
+      subject: data.subject || "New message from contact form",
+      text: `
+        Name: ${data.name}
+        Email: ${data.email}
+        Company: ${data.company || "N/A"}
+        Subject: ${data.subject || "No subject"}
+        
+        Message:
+        ${data.message}
+      `
+    };
+
+    // Send email
+    await mg.messages().send(emailData);
+    
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ message: "Email sent successfully" })
+    };
+    
+  } catch (error) {
+    console.error("Full error:", error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: error.message })
+    };
+  }
 };
