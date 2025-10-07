@@ -13,60 +13,78 @@ export const handler = async (event) => {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  return new Promise((resolve, reject) => {
-    const busboy = Busboy({ headers: event.headers });
-    const fields = {};
-    let attachmentBuffer = null;
-    let attachmentName = "";
-    let attachmentType = "";
+  return new Promise((resolve) => {
+    try {
+      const busboy = Busboy({ headers: event.headers });
+      const fields = {};
+      let attachmentBuffer = null;
+      let attachmentName = "";
+      let attachmentType = "";
 
-    busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-      const chunks = [];
-      file.on("data", (data) => chunks.push(data));
-      file.on("end", () => {
-        attachmentBuffer = Buffer.concat(chunks);
-        attachmentName = filename;
-        attachmentType = mimetype;
+      busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
+        const chunks = [];
+        file.on("data", (data) => chunks.push(data));
+        file.on("end", () => {
+          attachmentBuffer = Buffer.concat(chunks);
+          attachmentName = filename;
+          attachmentType = mimetype;
+        });
       });
-    });
 
-    busboy.on("field", (fieldname, val) => {
-      fields[fieldname] = val;
-    });
+      busboy.on("field", (fieldname, val) => {
+        fields[fieldname] = val;
+      });
 
-    busboy.on("finish", async () => {
-      try {
-        const msgData = {
-          from: `${fields.name} <${fields.email}>`,
-          to: "contact@githubtechnologies.com",
-          subject: `Contact Form: ${fields.subject || "New Submission"}`,
-          text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
-          attachment: attachmentBuffer
-            ? [
-                {
-                  filename: attachmentName,
-                  data: attachmentBuffer,
-                  contentType: attachmentType,
-                },
-              ]
-            : [],
-        };
+      busboy.on("finish", async () => {
+        try {
+          const msgData = {
+            from: `${fields.name} <${fields.email}>`,
+            to: "contact@githubtechnologies.com",
+            subject: `Contact Form: ${fields.subject || "New Submission"}`,
+            text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
+          };
 
-        await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
+          // ✅ Proper Mailgun attachment structure (no 'path')
+          if (attachmentBuffer) {
+            msgData.attachment = [
+              {
+                data: attachmentBuffer,
+                filename: attachmentName,
+                contentType: attachmentType,
+              },
+            ];
+          }
 
-        resolve({
-          statusCode: 200,
-          body: JSON.stringify({ message: "Email sent successfully!" }),
-        });
-      } catch (error) {
-        console.error("Mailgun error:", error);
-        resolve({
-          statusCode: 500,
-          body: JSON.stringify({ error: "Error sending email via Mailgun" }),
-        });
-      }
-    });
+          console.log("Sending via Mailgun:", {
+            ...msgData,
+            attachment: attachmentBuffer ? attachmentName : "none",
+          });
 
-    busboy.end(Buffer.from(event.body, "base64"));
+          await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
+
+          resolve({
+            statusCode: 200,
+            body: JSON.stringify({ message: "Email sent successfully!" }),
+          });
+        } catch (error) {
+          console.error("Mailgun error:", error);
+          resolve({
+            statusCode: 500,
+            body: JSON.stringify({
+              error: "Error sending email via Mailgun",
+              details: error.message,
+            }),
+          });
+        }
+      });
+
+      busboy.end(Buffer.from(event.body, "base64"));
+    } catch (err) {
+      console.error("Parsing error:", err);
+      resolve({
+        statusCode: 500,
+        body: JSON.stringify({ error: "Error parsing form data" }),
+      });
+    }
   });
 };
