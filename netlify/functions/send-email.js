@@ -21,19 +21,27 @@ export const handler = async (event) => {
       let fileName = "";
       let fileType = "";
 
-      // ✅ Handle file stream properly
+      // ✅ Capture fields properly
+      busboy.on("field", (fieldname, val) => {
+        fields[fieldname] = val;
+      });
+
+      // ✅ Capture file buffer properly
       busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
         const chunks = [];
         file.on("data", (data) => chunks.push(data));
         file.on("end", () => {
           fileBuffer = Buffer.concat(chunks);
-          fileName = filename;
-          fileType = mimetype;
-        });
-      });
 
-      busboy.on("field", (fieldname, val) => {
-        fields[fieldname] = val;
+          // 🔧 filename may be an object (Busboy edge case)
+          if (typeof filename === "object" && filename !== null) {
+            fileName = filename.filename || "attachment";
+            fileType = filename.mimeType || mimetype || "application/octet-stream";
+          } else {
+            fileName = filename || "attachment";
+            fileType = mimetype || "application/octet-stream";
+          }
+        });
       });
 
       busboy.on("finish", async () => {
@@ -50,7 +58,7 @@ export const handler = async (event) => {
               {
                 filename: fileName,
                 data: fileBuffer,
-                contentType: fileType || "application/octet-stream",
+                contentType: fileType,
               },
             ];
           }
