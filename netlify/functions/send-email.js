@@ -18,60 +18,77 @@ export const handler = async (event) => {
       const busboy = Busboy({ headers: event.headers });
       const fields = {};
       let attachmentBuffer = null;
-      let attachmentName = "";
-      let attachmentType = "";
+      let attachmentFilename = "";
+      let attachmentMimeType = "";
 
+      // ✅ Capture file stream
       busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
         const chunks = [];
         file.on("data", (data) => chunks.push(data));
         file.on("end", () => {
-          attachmentBuffer = Buffer.concat(chunks);
-          attachmentName = filename;
-          attachmentType = mimetype;
+          try {
+            attachmentBuffer = Buffer.concat(chunks);
+            attachmentFilename = filename;
+            attachmentMimeType = mimetype;
+          } catch (err) {
+            console.error("⚠️ Attachment parse error:", err);
+            attachmentBuffer = null;
+          }
         });
       });
 
+      // ✅ Capture text fields
       busboy.on("field", (fieldname, val) => {
         fields[fieldname] = val;
       });
 
+      // ✅ When parsing finishes
       busboy.on("finish", async () => {
         try {
           const msgData = {
-            from: `${fields.name} <${fields.email}>`,
+            from: `${fields.name || "Website User"} <${fields.email || "no-reply@site.com"}>`,
             to: "contact@githubtechnologies.com",
             subject: `Contact Form: ${fields.subject || "New Submission"}`,
-            text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
+            text: `${fields.message || "(no message)"}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
           };
 
-          // ✅ Use 'attachment' (not attachments), and provide proper 'data' buffer
-          if (attachmentBuffer) {
-            msgData.attachment = [
-              {
-                data: attachmentBuffer,
-                filename: attachmentName,
-                contentType: attachmentType,
-              },
-            ];
+          // ✅ Safe attachment handling
+          if (attachmentBuffer && attachmentFilename) {
+            try {
+              msgData.attachment = [
+                {
+                  data: attachmentBuffer,
+                  filename: attachmentFilename,
+                  contentType: attachmentMimeType,
+                },
+              ];
+            } catch (err) {
+              console.warn("⚠️ Skipping attachment due to processing error:", err.message);
+            }
           }
 
           console.log("📩 Sending via Mailgun:", {
             from: msgData.from,
             to: msgData.to,
             subject: msgData.subject,
-            attachment: attachmentBuffer
-              ? { filename: attachmentName, contentType: attachmentType }
+            hasAttachment: !!attachmentBuffer,
+            attachmentInfo: attachmentBuffer
+              ? { filename: attachmentFilename, contentType: attachmentMimeType }
               : "none",
           });
 
+          // ✅ Send via Mailgun
           await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
 
           resolve({
             statusCode: 200,
-            body: JSON.stringify({ message: "Email sent successfully!" }),
+            body: JSON.stringify({
+              message: "Email sent successfully!",
+              attachment: !!attachmentBuffer ? attachmentFilename : "none",
+            }),
           });
         } catch (error) {
-          console.error("❌ Mailgun error:", error);
+          console.error("❌ Mailgun send error:", error);
           resolve({
             statusCode: 500,
             body: JSON.stringify({
@@ -82,9 +99,10 @@ export const handler = async (event) => {
         }
       });
 
+      // ✅ Parse multipart form data
       busboy.end(Buffer.from(event.body, "base64"));
     } catch (err) {
-      console.error("Parsing error:", err);
+      console.error("❌ Parsing error:", err);
       resolve({
         statusCode: 500,
         body: JSON.stringify({ error: "Error parsing form data" }),
