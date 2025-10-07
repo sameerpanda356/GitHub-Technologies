@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Clock, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, Globe, Paperclip } from 'lucide-react';
 
 const GetInTouch: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -7,7 +7,8 @@ const GetInTouch: React.FC = () => {
     email: '',
     company: '',
     subject: '',
-    message: ''
+    message: '',
+    attachment: null as File | null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
@@ -20,16 +21,38 @@ const GetInTouch: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Handle file upload
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFormData((prev) => ({ ...prev, attachment: e.target.files![0] }));
+    }
+  };
+
+ /* const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
       // Use absolute URL in production
-      const url = process.env.NODE_ENV === 'development' 
-      ? '/.netlify/functions/send-email' 
-      : `${window.location.origin}/.netlify/functions/send-email`;
+      // const url = process.env.NODE_ENV === 'development' 
+      // ? '/.netlify/functions/send-email' 
+      // : `${window.location.origin}/.netlify/functions/send-email`; 
+
+        const url = process.env.NODE_ENV === "development"
+        ? "http://localhost:5001/send-email"
+        : "/.netlify/functions/send-email";
+
+        const data = new FormData();
+        data.append("name", formData.name);
+        data.append("email", formData.email);
+        data.append("company", formData.company);
+        data.append("subject", formData.subject);
+        data.append("message", formData.message);
+        if (formData.attachment) {
+          data.append("attachment", formData.attachment);
+        }
+
       
       const response = await fetch(url, {
         method: 'POST',
@@ -55,7 +78,7 @@ const GetInTouch: React.FC = () => {
           message: result.message || 'Message sent successfully!' 
         });
         // Reset form
-        setFormData({ name: '', email: '', company: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', company: '', subject: '', message: '' , attachment: null,});
       } else {
         setSubmitStatus({ 
           success: false, 
@@ -72,7 +95,70 @@ const GetInTouch: React.FC = () => {
     }
     // Handle form submission here
     // console.log('Form submitted:', formData);
+  };  */
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+  
+    try {
+      const url =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:5001/send-email"
+          : "/.netlify/functions/send-email";
+  
+      // Build multipart/form-data payload
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("company", formData.company);
+      data.append("subject", formData.subject);
+      data.append("message", formData.message);
+      if (formData.attachment) {
+        data.append("attachment", formData.attachment);
+      }
+  
+      // ✅ Send as FormData (no headers!)
+      const response = await fetch(url, {
+        method: "POST",
+        body: data,
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        setSubmitStatus({
+          success: true,
+          message: result.message || "Message sent successfully!",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          subject: "",
+          message: "",
+          attachment: null,
+        });
+      } else {
+        setSubmitStatus({
+          success: false,
+          message: result.error || `Error: ${response.status}`,
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        success: false,
+        message:
+          error instanceof Error ? error.message : "An unknown error occurred",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+  
+
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -172,6 +258,29 @@ const GetInTouch: React.FC = () => {
                 />
               </div>
 
+              {/* Attachment Field */}
+              <div>
+                <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 mb-2">
+                  Attachment (optional)
+                </label>
+                <div className="flex items-center space-x-3">
+                  <input
+                    id="attachment"
+                    name="attachment"
+                    type="file"
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-600"
+                  />
+                  <Paperclip className="w-5 h-5 text-gray-500" />
+                </div>
+                {formData.attachment && (
+                  <p className="text-sm text-gray-500 mt-1">
+                    Attached: {formData.attachment.name}
+                  </p>
+                )}
+              </div>
+
               <button type="submit" disabled={isSubmitting}
                 className={`w-full ${
                   isSubmitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
@@ -180,6 +289,7 @@ const GetInTouch: React.FC = () => {
                 <Send className="w-5 h-5" />
                 <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
               </button>
+
               {submitStatus && (
                 <div className={`mt-4 p-3 rounded-lg text-center ${
                   submitStatus.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
