@@ -9,6 +9,7 @@ app.use(cors());
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+
 // Optional root route
 app.get("/", (req, res) => res.send("📬 Test mail server running with attachments ✅"));
 
