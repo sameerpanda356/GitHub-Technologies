@@ -44,7 +44,7 @@ export const handler = async (event) => {
             text: `${fields.message}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
           };
 
-          // ✅ Proper Mailgun attachment structure (no 'path')
+          // ✅ Use 'attachment' (not attachments), and provide proper 'data' buffer
           if (attachmentBuffer) {
             msgData.attachment = [
               {
@@ -55,9 +55,13 @@ export const handler = async (event) => {
             ];
           }
 
-          console.log("Sending via Mailgun:", {
-            ...msgData,
-            attachment: attachmentBuffer ? attachmentName : "none",
+          console.log("📩 Sending via Mailgun:", {
+            from: msgData.from,
+            to: msgData.to,
+            subject: msgData.subject,
+            attachment: attachmentBuffer
+              ? { filename: attachmentName, contentType: attachmentType }
+              : "none",
           });
 
           await mg.messages.create(process.env.MAILGUN_DOMAIN, msgData);
@@ -67,7 +71,7 @@ export const handler = async (event) => {
             body: JSON.stringify({ message: "Email sent successfully!" }),
           });
         } catch (error) {
-          console.error("Mailgun error:", error);
+          console.error("❌ Mailgun error:", error);
           resolve({
             statusCode: 500,
             body: JSON.stringify({
