@@ -204,9 +204,9 @@ const GetInTouch: React.FC = () => {
                     id="attachment"
                     name="attachment"
                     type="file"
-                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.jpeg,.pptx,.xls,.xlsx"
                     onChange={handleFileChange}
-                    className="block w-full text-sm text-gray-600"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   />
                   <Paperclip className="w-5 h-5 text-gray-500" />
                 </div>
