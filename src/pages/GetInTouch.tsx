@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Clock, Globe, Paperclip } from 'lucide-react';
+import { Send, Paperclip } from 'lucide-react';
 
 const GetInTouch: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -27,75 +27,6 @@ const GetInTouch: React.FC = () => {
       setFormData((prev) => ({ ...prev, attachment: e.target.files![0] }));
     }
   };
-
- /* const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // Use absolute URL in production
-      // const url = process.env.NODE_ENV === 'development' 
-      // ? '/.netlify/functions/send-email' 
-      // : `${window.location.origin}/.netlify/functions/send-email`; 
-
-        const url = process.env.NODE_ENV === "development"
-        ? "http://localhost:5001/send-email"
-        : "/.netlify/functions/send-email";
-
-        const data = new FormData();
-        data.append("name", formData.name);
-        data.append("email", formData.email);
-        data.append("company", formData.company);
-        data.append("subject", formData.subject);
-        data.append("message", formData.message);
-        if (formData.attachment) {
-          data.append("attachment", formData.attachment);
-        }
-
-      
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      // Handle response text safely
-      const responseText = await response.text();
-      let result: any;
-
-      try {
-        result = JSON.parse(responseText);
-      } catch (parseError) {
-        throw new Error(`Invalid JSON: ${responseText}`);
-      }
-
-      if (response.ok) {
-        setSubmitStatus({ 
-          success: true, 
-          message: result.message || 'Message sent successfully!' 
-        });
-        // Reset form
-        setFormData({ name: '', email: '', company: '', subject: '', message: '' , attachment: null,});
-      } else {
-        setSubmitStatus({ 
-          success: false, 
-          message: result.error || `Error: ${response.status}` 
-        });
-      }
-    } catch (error) {
-      setSubmitStatus({ 
-        success: false, 
-        message: error instanceof Error ? error.message : 'Unknown error'
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-    // Handle form submission here
-    // console.log('Form submitted:', formData);
-  };  */
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,6 +71,11 @@ const GetInTouch: React.FC = () => {
           message: "",
           attachment: null,
         });
+
+        // ✅ Clear file input manually (important for browser UI)
+        const fileInput = document.getElementById("attachment") as HTMLInputElement;
+        if (fileInput) fileInput.value = "";
+        
       } else {
         setSubmitStatus({
           success: false,
