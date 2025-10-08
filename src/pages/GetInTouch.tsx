@@ -204,7 +204,7 @@ const GetInTouch: React.FC = () => {
                     id="attachment"
                     name="attachment"
                     type="file"
-                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.jpeg,.pptx,.xls,.xlsx"
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.pptx,.xls,.xlsx"
                     onChange={handleFileChange}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                   />
