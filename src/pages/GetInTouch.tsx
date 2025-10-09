@@ -208,33 +208,36 @@ const GetInTouch: React.FC = () => {
               {/* Attachment Field */}
               <div>
                 <label htmlFor="attachment" className="block text-sm font-medium text-gray-700 mb-2">
-                  Attachment (optional)
+                  Attach Files (optional)
                 </label>
                 <div className="flex items-center space-x-3">
-                <input
-                  id="attachment"
-                  name="attachments"
-                  type="file"
-                  multiple // ✅ allow selecting several files
-                  accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.pptx,.xls,.xlsx"
-                  onChange={handleFileChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                />
+                  <input
+                    id="attachment"
+                    name="attachment"
+                    type="file"
+                    multiple
+                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.pptx,.xls,.xlsx"
+                    onChange={handleFileChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                  />
                   <Paperclip className="w-5 h-5 text-gray-500" />
                 </div>
-                {formData.attachments.length > 0 && (
-                  <ul className="text-sm text-gray-500 mt-1 space-y-1">
-                    {formData.attachments.map((file, idx) => (
-                      <li key={idx}>📎 {file.name}</li>
-                    ))}
-                  </ul>
-                )}
 
-                {/* Show soft error if any */}
+                {/* Error Message */}
                 {fileSizeError && (
                   <p className="text-sm text-red-500 mt-1">{fileSizeError}</p>
                 )}
 
+                {/* File Name List */}
+                {formData.attachments.length > 0 && !fileSizeError && (
+                  <ul className="mt-2 space-y-1 text-sm text-gray-600">
+                    {formData.attachments.map((file, index) => (
+                      <li key={index} className="flex items-center">
+                        📎 {file.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               <button type="submit" disabled={isSubmitting}
