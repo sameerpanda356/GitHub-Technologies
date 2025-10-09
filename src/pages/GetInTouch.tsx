@@ -13,6 +13,8 @@ const GetInTouch: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
 
+  const [fileSizeError, setFileSizeError] = useState("");
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -23,18 +25,15 @@ const GetInTouch: React.FC = () => {
 
   // Handle file upload
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    if (fileList && fileList.length > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        attachments: Array.from(fileList), // ✅ Safe because we checked null
-      }));
+    const files = e.target.files ? Array.from(e.target.files) : [];
+    const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+  
+    if (totalSize > 10 * 1024 * 1024) {   // 10 MB limit
+      setFileSizeError("Total attachment size exceeds 10 MB. Please reduce file size.");
+      setFormData((prev) => ({ ...prev, attachments: [] }));  // Clear invalid files
     } else {
-      // If no files selected, clear attachments
-      setFormData((prev) => ({
-        ...prev,
-        attachments: [],
-      }));
+      setFileSizeError("");
+      setFormData((prev) => ({ ...prev, attachments: files }));
     }
   };
 
@@ -229,6 +228,11 @@ const GetInTouch: React.FC = () => {
                       <li key={idx}>📎 {file.name}</li>
                     ))}
                   </ul>
+                )}
+
+                {/* Show soft error if any */}
+                {fileSizeError && (
+                  <p className="text-sm text-red-500 mt-1">{fileSizeError}</p>
                 )}
 
               </div>
