@@ -189,11 +189,11 @@ const GetInTouch: React.FC = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                 >
                   <option value="">Select a subject</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="services">Investment</option>
-                  <option value="partnership">Partnership</option>
-                  <option value="careers">Join Our Team</option>
-                  <option value="other">Request Demo</option>
+                  <option value="General">General Inquiry</option>
+                  <option value="Investment">Investment</option>
+                  <option value="Partnership">Partnership</option>
+                  <option value="Careers">Join Our Team</option>
+                  <option value="Demo">Request Demo</option>
                 </select>
               </div>
 
