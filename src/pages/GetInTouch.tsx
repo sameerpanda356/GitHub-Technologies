@@ -8,7 +8,7 @@ const GetInTouch: React.FC = () => {
     company: '',
     subject: '',
     message: '',
-    attachment: null as File | null,
+    attachments: [] as File[], // ✅ allow multiple files
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null);
@@ -23,8 +23,18 @@ const GetInTouch: React.FC = () => {
 
   // Handle file upload
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFormData((prev) => ({ ...prev, attachment: e.target.files![0] }));
+    const fileList = e.target.files;
+    if (fileList && fileList.length > 0) {
+      setFormData((prev) => ({
+        ...prev,
+        attachments: Array.from(fileList), // ✅ Safe because we checked null
+      }));
+    } else {
+      // If no files selected, clear attachments
+      setFormData((prev) => ({
+        ...prev,
+        attachments: [],
+      }));
     }
   };
 
@@ -46,8 +56,10 @@ const GetInTouch: React.FC = () => {
       data.append("company", formData.company);
       data.append("subject", formData.subject);
       data.append("message", formData.message);
-      if (formData.attachment) {
-        data.append("attachment", formData.attachment);
+      if (formData.attachments && formData.attachments.length > 0) {
+        formData.attachments.forEach((file) => {
+          data.append("attachments", file);
+        });
       }
   
       // ✅ Send as FormData (no headers!)
@@ -69,7 +81,7 @@ const GetInTouch: React.FC = () => {
           company: "",
           subject: "",
           message: "",
-          attachment: null,
+          attachments: [],
         });
 
         // ✅ Clear file input manually (important for browser UI)
@@ -200,21 +212,25 @@ const GetInTouch: React.FC = () => {
                   Attachment (optional)
                 </label>
                 <div className="flex items-center space-x-3">
-                  <input
-                    id="attachment"
-                    name="attachment"
-                    type="file"
-                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.pptx,.xls,.xlsx"
-                    onChange={handleFileChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                  />
+                <input
+                  id="attachment"
+                  name="attachments"
+                  type="file"
+                  multiple // ✅ allow selecting several files
+                  accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.ppt,.pptx,.xls,.xlsx"
+                  onChange={handleFileChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                />
                   <Paperclip className="w-5 h-5 text-gray-500" />
                 </div>
-                {formData.attachment && (
-                  <p className="text-sm text-gray-500 mt-1">
-                    Attached: {formData.attachment.name}
-                  </p>
+                {formData.attachments.length > 0 && (
+                  <ul className="text-sm text-gray-500 mt-1 space-y-1">
+                    {formData.attachments.map((file, idx) => (
+                      <li key={idx}>📎 {file.name}</li>
+                    ))}
+                  </ul>
                 )}
+
               </div>
 
               <button type="submit" disabled={isSubmitting}

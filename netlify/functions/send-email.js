@@ -20,6 +20,7 @@ export const handler = async (event) => {
       let fileBuffer = null;
       let fileName = "";
       let fileType = "";
+      let files = [];
 
       // ✅ Capture fields properly
       busboy.on("field", (fieldname, val) => {
@@ -31,16 +32,16 @@ export const handler = async (event) => {
         const chunks = [];
         file.on("data", (data) => chunks.push(data));
         file.on("end", () => {
-          fileBuffer = Buffer.concat(chunks);
-
-          // 🔧 filename may be an object (Busboy edge case)
-          if (typeof filename === "object" && filename !== null) {
-            fileName = filename.filename || "attachment";
-            fileType = filename.mimeType || mimetype || "application/octet-stream";
-          } else {
-            fileName = filename || "attachment";
-            fileType = mimetype || "application/octet-stream";
-          }
+          const fileBuffer = Buffer.concat(chunks);
+          const cleanName =
+            typeof filename === "object" && filename !== null
+              ? filename.filename || "attachment"
+              : filename || "attachment";
+          files.push({
+            filename: cleanName,
+            data: fileBuffer,
+            contentType: mimetype || "application/octet-stream",
+          });
         });
       });
 
@@ -53,14 +54,8 @@ export const handler = async (event) => {
             text: `${fields.message || "(no message)"}\n\nFrom: ${fields.name}\nCompany: ${fields.company}\nEmail: ${fields.email}`,
           };
 
-          if (fileBuffer && fileName) {
-            msgData.attachment = [
-              {
-                filename: fileName,
-                data: fileBuffer,
-                contentType: fileType,
-              },
-            ];
+          if (files.length > 0) {
+            msgData.attachment = files;
           }
 
           console.log("📩 Sending via Mailgun:", {
